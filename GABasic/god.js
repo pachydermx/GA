@@ -1,10 +1,13 @@
 function God() {
 	this.population = [];
 	this.length;
+	this.crossover_probability = 0.6;
 }
 
 // generation
 God.prototype.gen = function (population, length){
+	delete this.population;
+	this.population = [];
 	this.length = length;
 	for(var i = 0; i < population; i++){
 		this.population.push(new Node(length));
@@ -27,6 +30,17 @@ God.prototype.select = function () {
 	this.population = buf;
 };
 
+God.prototype.crossover = function () {
+	var groups = Math.floor( this.population.length / 2 );
+	var mates = [];
+	// bind mates
+	for (var i = 0; i < groups; i++) {
+		mates.push(new Couple(this.population[ i * 2 ], this.population[ i * 2]));
+		mates[mates.length - 1].print();
+	}
+	// crossover
+	
+};
 
 // utility
 // calc
@@ -40,7 +54,7 @@ God.prototype.sumFit = function () {
 		sum += this.population[i].fit();
 	}
 	return sum;
-}
+};
 
 God.prototype.pick = function (exception) {
 	var index;
@@ -59,9 +73,9 @@ God.prototype.pick = function (exception) {
 		}
 	}
 	return index;	
-}
+};
 
-// print
+// output
 God.prototype.print = function () {
 	for (var i in this.population) {
 		console.log(i + ". " +this.population[i].string() + " - " + this.population[i].fit());
