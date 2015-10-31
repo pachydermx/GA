@@ -42,6 +42,25 @@ God.prototype.sumFit = function () {
 	return sum;
 }
 
+God.prototype.pick = function (exception) {
+	var index;
+	while ( true ) {
+		index = Math.floor( Math.random() * this.population.length )
+		var available = true;
+		if (typeof exception !== "undefined") {
+			for ( var i in exception ) {
+				if (exception[i] == index) {
+					available = false;
+				}
+			}
+		}
+		if (available) {
+			break;
+		}
+	}
+	return index;	
+}
+
 // print
 God.prototype.print = function () {
 	for (var i in this.population) {
