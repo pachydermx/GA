@@ -3,7 +3,11 @@ function Couple(node_a, node_b) {
 }
 
 Couple.crossover = function() {
-	
+	var kids = [];
+	var divider = rw.select(this.nodes[0].lengh);
+	var i = 0;
+	// copy
+	// cross
 };
 
 // utility

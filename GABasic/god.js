@@ -10,7 +10,9 @@ God.prototype.gen = function (population, length){
 	this.population = [];
 	this.length = length;
 	for(var i = 0; i < population; i++){
-		this.population.push(new Node(length));
+		var new_node = new Node(length);
+		new_node.gen(length);
+		this.population.push(new_node);
 	}
 	return this.population;
 };

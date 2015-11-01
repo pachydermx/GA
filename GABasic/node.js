@@ -1,5 +1,10 @@
 function Node(length) {
 	this.dna = [];
+	this.lengh = length;
+}
+
+Node.prototype.gen = function(length) {
+	this.dna = [];
 	this.length = length;
 	for (var i = 0; i < length; i++) {
 		this.dna[i] = rw.coin(0.5);
