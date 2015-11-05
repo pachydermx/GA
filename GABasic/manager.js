@@ -10,6 +10,15 @@ Manager.prototype.setLastColumn = function (item) {
 	this.setActive(god.counter, item);
 }
 
+Manager.prototype.reset = function () {
+	// clear
+	this.plots = [];
+	$("#insert_point").html("");
+	plot_sum = [];
+	plot_avg = [];
+	counter = 0;
+}
+
 Manager.prototype.go = function () {
 	// clear
 	$("#insert_point").html("");

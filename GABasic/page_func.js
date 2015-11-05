@@ -27,3 +27,9 @@ $("#go_button").click(function() {
 	manager.go();
 	
 })
+
+$("#reset_button").click(function() {
+	manager.reset();
+	$("#intro").fadeIn();
+	$("#display").fadeOut();
+})
