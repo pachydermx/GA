@@ -1,6 +1,11 @@
-function Node(length) {
-	this.dna = [];
-	this.length = length;
+function Node(input) {
+	if (Array.isArray(input)){
+		this.dna = input;
+		this.length = this.dna.length;
+	} else {
+		this.dna = [];
+		this.length = length;
+	}
 }
 
 Node.prototype.gen = function(length) {
@@ -11,8 +16,9 @@ Node.prototype.gen = function(length) {
 	}
 }
 
+
 Node.prototype.mutation = function() {
-	var index = rw.select(this.lengh);
+	var index = rw.select(this.length - 1);
 	this.dna[index] = !this.dna[index];
 }
 
@@ -44,5 +50,5 @@ Node.prototype.string = function () {
 }
 
 Node.prototype.code = function () {
-	return '<li class="list-group-item">' + this.string() + '</li>';
+	return '<li class="list-group-item">' + this.string() + " - " + this.fit() + '</li>';
 }

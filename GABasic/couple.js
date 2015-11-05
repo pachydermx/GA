@@ -4,11 +4,11 @@ function Couple(node_a, node_b) {
 }
 
 Couple.prototype.crossover = function() {
-	console.log("before")
-	this.print();
+	//console.log("before")
+	//this.print();
 	var kids = [new Node(this.length), new Node(this.length)];
 	var divider = rw.select(this.nodes[0].length - 2) + 1;
-	console.log("divider: " + divider);
+	//console.log("divider: " + divider);
 	var i = 0;
 	// copy
 	for (; i < divider; i++) {
@@ -22,7 +22,7 @@ Couple.prototype.crossover = function() {
 	}
 	this.nodes[0].substitute(kids[0].dna);
 	this.nodes[1].substitute(kids[1].dna);
-	this.print();
+	//this.print();
 };
 
 // utility

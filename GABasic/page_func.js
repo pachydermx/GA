@@ -1,11 +1,15 @@
 var god = new God();
 god.gen(10, 10);
-god.print();
-for (var i = 0; i <5; i++){
+god.code();
+for (var i = 0; i < 50; i++){
 	god.select();
-	god.print();
+	god.code();
+	//god.print();
 	god.crossover();
-	god.print();
+	god.code();
+	//god.print();
 	god.mutation();
-	god.print();
+	//god.print();
+	god.code();
 }
+god.code();

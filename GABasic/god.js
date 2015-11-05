@@ -30,7 +30,8 @@ God.prototype.select = function () {
 	var buf = [];
 	for (var i = 0; i < this.population.length; i++){
 		var pointer = rw.roulette(ratio);
-		buf.push(this.population[pointer]);
+		//buf.push(this.population[pointer]);
+		buf.push(new Node(this.population[pointer].dna));
 	}
 	this.population = buf;
 	this.last_job = "Select";
@@ -105,7 +106,7 @@ God.prototype.print = function () {
 }
 
 God.prototype.code = function() {
-	var buf = '<div class="row"><div class="col-sm-4"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">';
+	var buf = '<div class="col-sm-4"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">';
 	buf += this.last_job;
 	buf += '</h3></div><div class="panel-body"><div class="row"><div><ul class="list-group">';
 	
@@ -113,6 +114,8 @@ God.prototype.code = function() {
 		buf += this.population[i].code();
 	}
 	
-	buf += '</ul></div></div></div></div></div><!-- /.col-sm-4 --></div>';
+	buf += "<p>" + "Avg: " + this.avgFit() + " Sum: " + this.sumFit() + "</p>";
+	
+	buf += '</ul></div></div></div></div></div><!-- /.col-sm-4 -->';
 	$("#insert_point").append(buf);
 }
