@@ -1,7 +1,7 @@
 function God() {
 	this.population = [];
 	this.length;
-	this.crossover_probability = 1;
+	this.crossover_probability = 0.6;
 	this.mutation_probability = 0.05;
 	this.last_job = "";
 }
@@ -118,4 +118,9 @@ God.prototype.code = function() {
 	
 	buf += '</ul></div></div></div></div></div><!-- /.col-sm-4 -->';
 	$("#insert_point").append(buf);
+	
+	
+	plot_sum.push([counter, this.sumFit()]);
+	plot_avg.push([counter, this.avgFit()]);
+	counter++;
 }
