@@ -1,20 +1,29 @@
-var god = new God();
+var god;
 var plot_sum = [];
 var plot_avg = [];
 var counter = 0;
 
-god.init(8, 4);
-god.code();
-for (var i = 0; i < 5; i++){
-	god.select();
-	god.code();
-	//god.print();
-	god.crossover();
-	god.code();
-	//god.print();
-	god.mutation();
-	//god.print();
-	god.code();
-}
-
-$.plot("#placeholder", [plot_sum, plot_avg]);
+$("#go_button").click(function() {
+	// check value
+	if ($("#p_input").val().length == 0) {
+		$("#p_input").val(10);
+	}
+	if ($("#b_input").val().length == 0) {
+		$("#b_input").val(6);
+	}
+	if ($("#g_input").val().length == 0) {
+		$("#g_input").val(8);
+	}
+	if ($("#cp_input").val().length == 0) {
+		$("#cp_input").val(0.6);
+	}
+	if ($("#mp_input").val().length == 0) {
+		$("#mp_input").val(0.05);
+	}
+	$("#intro").fadeOut();
+	$("#display").fadeIn();
+	
+	// run
+	manager.go();
+	
+})

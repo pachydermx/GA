@@ -1,6 +1,6 @@
 .demo-container {
 	box-sizing: border-box;
-	width: 850px;
+	width: 1140px;
 	height: 450px;
 	padding: 20px 15px 15px 15px;
 	margin: 15px auto 30px auto;
@@ -28,4 +28,8 @@
 .changed {
 	color: white;
 	background-color: red;
+}
+
+#display {
+	display: none;
 }
