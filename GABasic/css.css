@@ -24,3 +24,8 @@
 	font-size: 14px;
 	line-height: 1.2em;
 }
+
+.changed {
+	color: white;
+	background-color: red;
+}

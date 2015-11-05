@@ -1,4 +1,5 @@
 function Node(input) {
+	this.changed = [];
 	if (Array.isArray(input)){
 		this.dna = input;
 		this.length = this.dna.length;
@@ -20,10 +21,7 @@ Node.prototype.gen = function(length) {
 Node.prototype.mutation = function() {
 	var index = rw.select(this.length - 1);
 	this.dna[index] = !this.dna[index];
-}
-
-Node.prototype.substitute = function (new_dna) {
-	this.dna = new_dna;
+	this.changed[index] = true;
 }
 
 Node.prototype.fit = function() {
@@ -40,15 +38,22 @@ Node.prototype.fit = function() {
 Node.prototype.string = function () {
 	var buf = "";
 	for (var i in this.dna) {
+		buf += "<span class='";
+		if (this.changed[i]){
+			buf += "changed"
+		}
+		buf += "'>"
 		if (this.dna[i]) {
 			buf += "1";
 		} else {
 			buf += "0";
 		}
+		buf += "</span>"
 	}
+	this.changed = [];
 	return buf;
 }
 
-Node.prototype.code = function () {
-	return '<li class="list-group-item">' + this.string() + " - " + this.fit() + '</li>';
+Node.prototype.code = function (id, mark) {
+	return '<li class="list-group-item item_' + id + ' ' + mark + '">' + this.string() + " - " + this.fit() + '</li>';
 }

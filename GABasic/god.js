@@ -1,13 +1,17 @@
 function God() {
 	this.population = [];
+	this.mark = [];
 	this.length;
 	this.crossover_probability = 0.6;
 	this.mutation_probability = 0.05;
 	this.last_job = "";
+	this.gen = 0;
+	this.counter = -1;
+	this.type = "default"
 }
 
 // generation
-God.prototype.gen = function (population, length){
+God.prototype.init = function (population, length){
 	delete this.population;
 	this.population = [];
 	this.length = length;
@@ -17,6 +21,8 @@ God.prototype.gen = function (population, length){
 		this.population.push(new_node);
 	}
 	this.last_job = "Generation"
+	this.type = "primary"
+	this.counter++;
 	return this.population;
 };
 
@@ -29,12 +35,17 @@ God.prototype.select = function () {
 	// select
 	var buf = [];
 	for (var i = 0; i < this.population.length; i++){
+		// select item using roulette
 		var pointer = rw.roulette(ratio);
-		//buf.push(this.population[pointer]);
 		buf.push(new Node(this.population[pointer].dna));
+		// mark
+		manager.setLastColumn(pointer);
 	}
 	this.population = buf;
 	this.last_job = "Select";
+	this.type = "default";
+	this.counter++;
+	this.gen++;
 };
 
 God.prototype.crossover = function () {
@@ -42,27 +53,35 @@ God.prototype.crossover = function () {
 	var mates = [];
 	// bind mates
 	for (var i = 0; i < groups; i++) {
-		mates.push(new Couple(this.population[ i * 2 ], this.population[ i * 2 + 1]));
+		if ( rw.coin( this.crossover_probability )) {
+			mates.push(new Couple(this.population[ i * 2 ], this.population[ i * 2 + 1]));
+			// mark
+			manager.setLastColumn( i * 2 );
+			manager.setLastColumn( i * 2 + 1 );
+		}
 	}
 	// crossover
 	for ( var i in mates ) {
-		if ( rw.coin( this.crossover_probability )) {
 			mates[i].crossover();
-		}
 	}
 	this.last_job = "Crossover";
+	this.type = "default";
+	this.counter++;
 };
 
 God.prototype.mutation = function () {
 	for (var i in this.population) {
 		if (rw.coin(this.mutation_probability)){
 			this.population[i].mutation();
+			// mark
+			manager.setLastColumn(i);
 		}
 	}
 	this.last_job = "Mutation";
+	this.type = "info";
+	this.counter++;
 }
 
-// utility
 // calc
 God.prototype.avgFit = function () {
 	return this.sumFit() / this.length;
@@ -106,17 +125,17 @@ God.prototype.print = function () {
 }
 
 God.prototype.code = function() {
-	var buf = '<div class="col-sm-4"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">';
+	var buf = '<div id="list_' + this.counter + '" class="col-sm-2"><div class="panel panel-' + this.type + '"><div class="panel-heading"><h3 class="panel-title">';
 	buf += this.last_job;
-	buf += '</h3></div><div class="panel-body"><div class="row"><div><ul class="list-group">';
+	buf += '</h3></div><div class="panel-body"><div><ul class="list-group">';
 	
 	for (var i in this.population) {
-		buf += this.population[i].code();
+		buf += this.population[i].code(i, this.mark[i]);
 	}
 	
 	buf += "<p>" + "Avg: " + this.avgFit() + " Sum: " + this.sumFit() + "</p>";
 	
-	buf += '</ul></div></div></div></div></div><!-- /.col-sm-4 -->';
+	buf += '</ul></div></div></div></div>';
 	$("#insert_point").append(buf);
 	
 	
