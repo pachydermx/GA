@@ -2,6 +2,7 @@ function God() {
 	this.population = [];
 	this.length;
 	this.crossover_probability = 0.6;
+	this.mutation_probability = 0.05;
 }
 
 // generation
@@ -37,12 +38,25 @@ God.prototype.crossover = function () {
 	var mates = [];
 	// bind mates
 	for (var i = 0; i < groups; i++) {
-		mates.push(new Couple(this.population[ i * 2 ], this.population[ i * 2]));
-		mates[mates.length - 1].print();
+		mates.push(new Couple(this.population[ i * 2 ], this.population[ i * 2 + 1]));
+		//mates[mates.length - 1].print();
 	}
 	// crossover
+	for ( var i in mates ) {
+		if ( rw.coin( this.crossover_probability )) {
+			mates[i].crossover();
+		}
+	}
 	
 };
+
+God.prototype.mutation = function () {
+	for (var i in this.population) {
+		if (rw.coin(this.mutation_probability)){
+			this.population[i].mutation();
+		}
+	}
+}
 
 // utility
 // calc
@@ -82,5 +96,6 @@ God.prototype.print = function () {
 	for (var i in this.population) {
 		console.log(i + ". " +this.population[i].string() + " - " + this.population[i].fit());
 	}
+	console.log("Avg: " + this.avgFit() + " Sum: " + this.sumFit())
 	console.log("");
 }

@@ -23,7 +23,7 @@ RandWorker.prototype.roulette = function(ratio) {
 }
 
 RandWorker.prototype.select = function(total) {
-	return math.floor( Math.random() * total );
+	return Math.floor( Math.random() * total );
 };
 
 var rw = new RandWorker();

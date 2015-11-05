@@ -11,6 +11,11 @@ Node.prototype.gen = function(length) {
 	}
 }
 
+Node.prototype.mutation = function() {
+	var index = rw.select(this.lengh);
+	this.dna[index] = !this.dna[index];
+}
+
 Node.prototype.fit = function() {
 	var sum = 0;
 	for (var i in this.dna) {
