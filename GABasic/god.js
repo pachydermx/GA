@@ -1,8 +1,9 @@
 function God() {
 	this.population = [];
 	this.length;
-	this.crossover_probability = 0.6;
+	this.crossover_probability = 1;
 	this.mutation_probability = 0.05;
+	this.last_job = "";
 }
 
 // generation
@@ -15,6 +16,7 @@ God.prototype.gen = function (population, length){
 		new_node.gen(length);
 		this.population.push(new_node);
 	}
+	this.last_job = "Generation"
 	return this.population;
 };
 
@@ -31,15 +33,15 @@ God.prototype.select = function () {
 		buf.push(this.population[pointer]);
 	}
 	this.population = buf;
+	this.last_job = "Select";
 };
 
 God.prototype.crossover = function () {
-	var groups = Math.floor( this.population.length / 2 );
+	var groups = Math.floor( this.population.length / 2 ) ;
 	var mates = [];
 	// bind mates
 	for (var i = 0; i < groups; i++) {
 		mates.push(new Couple(this.population[ i * 2 ], this.population[ i * 2 + 1]));
-		//mates[mates.length - 1].print();
 	}
 	// crossover
 	for ( var i in mates ) {
@@ -47,7 +49,7 @@ God.prototype.crossover = function () {
 			mates[i].crossover();
 		}
 	}
-	
+	this.last_job = "Crossover";
 };
 
 God.prototype.mutation = function () {
@@ -56,6 +58,7 @@ God.prototype.mutation = function () {
 			this.population[i].mutation();
 		}
 	}
+	this.last_job = "Mutation";
 }
 
 // utility
@@ -93,9 +96,23 @@ God.prototype.pick = function (exception) {
 
 // output
 God.prototype.print = function () {
+	console.log(this.last_job);
 	for (var i in this.population) {
 		console.log(i + ". " +this.population[i].string() + " - " + this.population[i].fit());
 	}
 	console.log("Avg: " + this.avgFit() + " Sum: " + this.sumFit())
 	console.log("");
+}
+
+God.prototype.code = function() {
+	var buf = '<div class="row"><div class="col-sm-4"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">';
+	buf += this.last_job;
+	buf += '</h3></div><div class="panel-body"><div class="row"><div><ul class="list-group">';
+	
+	for (var i in this.population) {
+		buf += this.population[i].code();
+	}
+	
+	buf += '</ul></div></div></div></div></div><!-- /.col-sm-4 --></div>';
+	$("#insert_point").append(buf);
 }

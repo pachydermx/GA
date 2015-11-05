@@ -1,6 +1,6 @@
 function Node(length) {
 	this.dna = [];
-	this.lengh = length;
+	this.length = length;
 }
 
 Node.prototype.gen = function(length) {
@@ -14,6 +14,10 @@ Node.prototype.gen = function(length) {
 Node.prototype.mutation = function() {
 	var index = rw.select(this.lengh);
 	this.dna[index] = !this.dna[index];
+}
+
+Node.prototype.substitute = function (new_dna) {
+	this.dna = new_dna;
 }
 
 Node.prototype.fit = function() {
@@ -37,4 +41,8 @@ Node.prototype.string = function () {
 		}
 	}
 	return buf;
+}
+
+Node.prototype.code = function () {
+	return '<li class="list-group-item">' + this.string() + '</li>';
 }
