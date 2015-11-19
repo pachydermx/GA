@@ -33,3 +33,7 @@
 #display {
 	display: none;
 }
+
+.form-group .form-control[type="number"]{
+	width: 100px;
+}

@@ -1,6 +1,7 @@
 var god;
 var plot_sum = [];
 var plot_avg = [];
+var plot_max = [];
 var counter = 0;
 
 $("#go_button").click(function() {

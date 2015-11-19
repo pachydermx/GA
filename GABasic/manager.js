@@ -16,6 +16,7 @@ Manager.prototype.reset = function () {
 	$("#insert_point").html("");
 	plot_sum = [];
 	plot_avg = [];
+	plot_max = [];
 	counter = 0;
 }
 
@@ -24,6 +25,7 @@ Manager.prototype.go = function () {
 	$("#insert_point").html("");
 	plot_sum = [];
 	plot_avg = [];
+	plot_max = [];
 	counter = 0;
 	// load values
 	var population = parseInt($("#p_input").val());
@@ -44,8 +46,9 @@ Manager.prototype.go = function () {
 		god.code();
 	}
 
-	this.plots.push(plot_sum);
+	//this.plots.push(plot_sum);
 	this.plots.push(plot_avg);
+	this.plots.push(plot_max);
 	$.plot("#placeholder", this.plots);
 }
 

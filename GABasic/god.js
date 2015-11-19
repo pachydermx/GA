@@ -8,6 +8,9 @@ function God(cp, mp) {
 	this.gen = 0;
 	this.counter = -1;
 	this.type = "default"
+	this.sumFit = 0;
+	this.avgFit = 0;
+	this.maxFit = 0;
 }
 
 // generation
@@ -83,17 +86,21 @@ God.prototype.mutation = function () {
 }
 
 // calc
-God.prototype.avgFit = function () {
-	return this.sumFit() / this.length;
-};
-
-God.prototype.sumFit = function () {
-	var sum = 0;
+God.prototype.stat = function () {
+	this.sumFit = 0;
+	this.maxFit = 0;
+	// get sum fit & max fit
 	for (var i in this.population) {
-		sum += this.population[i].fit();
+		var theFit = this.population[i].fit();
+		this.sumFit += theFit;
+		// check max fit
+		if (theFit > this.maxFit){
+			this.maxFit = theFit;
+		}
 	}
-	return sum;
-};
+	// get avg fit
+	this.avgFit = this.sumFit / this.population.length;
+}
 
 God.prototype.pick = function (exception) {
 	var index;
@@ -120,11 +127,13 @@ God.prototype.print = function () {
 	for (var i in this.population) {
 		console.log(i + ". " +this.population[i].string() + " - " + this.population[i].fit());
 	}
-	console.log("Avg: " + this.avgFit() + " Sum: " + this.sumFit())
+	console.log("Avg: " + this.avgFit + " Sum: " + this.sumFit)
 	console.log("");
 }
 
 God.prototype.code = function() {
+	this.stat();
+	
 	var buf = '<div id="list_' + this.counter + '" class="col-sm-2"><div class="panel panel-' + this.type + '"><div class="panel-heading"><h3 class="panel-title">';
 	buf += this.last_job + " Gen:" + this.gen;
 	buf += '</h3></div><div class="panel-body"><div><ul class="list-group">';
@@ -133,13 +142,14 @@ God.prototype.code = function() {
 		buf += this.population[i].code(i, this.mark[i]);
 	}
 	
-	buf += "<p>" + "Avg: " + Math.floor(this.avgFit() * 100) / 100 + "</p><p>Sum: " + this.sumFit() + "</p>";
+	buf += "<p>" + "Avg: " + Math.floor(this.avgFit * 100) / 100 + "</p><p>Max: " + this.maxFit + "</p>";
 	
 	buf += '</ul></div></div></div></div>';
 	$("#insert_point").append(buf);
 	
 	
-	plot_sum.push([counter, this.sumFit()]);
-	plot_avg.push([counter, this.avgFit()]);
+	plot_sum.push([counter, this.sumFit]);
+	plot_avg.push([counter, this.avgFit]);
+	plot_max.push([counter, this.maxFit]);
 	counter++;
 }
