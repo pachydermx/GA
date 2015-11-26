@@ -44,14 +44,36 @@ Plot.prototype.go = function () {
 		"mp": mp
 	});
 	
+	var that = this;
 	w.onmessage = function(event) {
-		console.log(event.data);
+		var data = event.data;
+		switch (event.data.type){
+			case "stat":
+				that.addData(event.data.avg, event.data.max);
+				break;
+			case "progress":
+				that.setProgress(event.data.progress * 100);
+				break;
+			default:
+				console.log(event.data);
+		}
 	}
 	
 	//this.plots.push(plot_sum);
 	this.plots.push(plot_avg);
 	this.plots.push(plot_max);
+	//$.plot("#placeholder", this.plots);
+}
+
+Plot.prototype.addData = function(avg, max){
+	plot_avg.push([counter, avg]);
+	plot_max.push([counter, max]);
 	$.plot("#placeholder", this.plots);
+	counter++;
+}
+
+Plot.prototype.setProgress = function(progress){
+	$("#progress-bar").css("width", progress + "%");
 }
 
 var plot = new Plot();
