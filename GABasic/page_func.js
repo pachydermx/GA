@@ -3,6 +3,7 @@ var plot_sum = [];
 var plot_avg = [];
 var plot_max = [];
 var counter = 0;
+var w;
 
 $("#go_button").click(function() {
 	// check value
@@ -25,9 +26,18 @@ $("#go_button").click(function() {
 	$("#display").fadeIn();
 	
 	// run
-	manager.go();
+	//manager.go();
+	plot.go();
+	
+	/*
+	w = new Worker("worker.js");
+	w.onmessage = function(event) {
+		console.log(event.data);
+	}
+	*/
 	
 })
+
 
 $("#reset_button").click(function() {
 	manager.reset();

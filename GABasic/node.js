@@ -5,7 +5,7 @@ function Node(input) {
 		this.length = this.dna.length;
 	} else {
 		this.dna = [];
-		this.length = length;
+		this.length = input;
 	}
 }
 

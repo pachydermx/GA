@@ -11,6 +11,8 @@ function God(cp, mp) {
 	this.sumFit = 0;
 	this.avgFit = 0;
 	this.maxFit = 0;
+	
+	this.print_detail = false;
 }
 
 // generation
@@ -42,7 +44,7 @@ God.prototype.select = function () {
 		var pointer = rw.roulette(ratio);
 		buf.push(new Node(this.population[pointer].dna));
 		// mark
-		manager.setLastColumn(pointer);
+		//manager.setLastColumn(pointer);
 	}
 	this.population = buf;
 	this.last_job = "Select";
@@ -59,8 +61,8 @@ God.prototype.crossover = function () {
 		if ( rw.coin( this.crossover_probability )) {
 			mates.push(new Couple(this.population[ i * 2 ], this.population[ i * 2 + 1]));
 			// mark
-			manager.setLastColumn( i * 2 );
-			manager.setLastColumn( i * 2 + 1 );
+			//manager.setLastColumn( i * 2 );
+			//manager.setLastColumn( i * 2 + 1 );
 		}
 	}
 	// crossover
@@ -77,7 +79,7 @@ God.prototype.mutation = function () {
 		if (rw.coin(this.mutation_probability)){
 			this.population[i].mutation();
 			// mark
-			manager.setLastColumn(i);
+			//manager.setLastColumn(i);
 		}
 	}
 	this.last_job = "Mutation";
@@ -134,18 +136,22 @@ God.prototype.print = function () {
 God.prototype.code = function() {
 	this.stat();
 	
-	var buf = '<div id="list_' + this.counter + '" class="col-sm-2"><div class="panel panel-' + this.type + '"><div class="panel-heading"><h3 class="panel-title">';
-	buf += this.last_job + " Gen:" + this.gen;
-	buf += '</h3></div><div class="panel-body"><div><ul class="list-group">';
-	
-	for (var i in this.population) {
-		buf += this.population[i].code(i, this.mark[i]);
-	}
-	
-	buf += "<p>" + "Avg: " + Math.floor(this.avgFit * 100) / 100 + "</p><p>Max: " + this.maxFit + "</p>";
-	
-	buf += '</ul></div></div></div></div>';
-	$("#insert_point").append(buf);
+	if (this.print_detail){
+		var buf = '<div id="list_' + this.counter + '" class="col-sm-2"><div class="panel panel-' + this.type + '"><div class="panel-heading"><h3 class="panel-title">';
+		buf += this.last_job + " Gen:" + this.gen;
+		buf += '</h3></div><div class="panel-body"><div><ul class="list-group">';
+
+		for (var i in this.population) {
+			buf += this.population[i].code(i, this.mark[i]);
+		}
+
+		buf += "<p>" + "Avg: " + Math.floor(this.avgFit * 100) / 100 + "</p><p>Max: " + this.maxFit + "</p>";
+
+		buf += '</ul></div></div></div></div>';
+
+		$("#insert_point").append(buf);
+		
+	}	
 	
 	
 	plot_sum.push([counter, this.sumFit]);
