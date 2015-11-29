@@ -41,7 +41,8 @@ Plot.prototype.go = function () {
 		"b": bits,
 		"g": gens,
 		"cp": cp,
-		"mp": mp
+		"mp": mp,
+		"d": 3 
 	});
 	
 	var that = this;
@@ -53,6 +54,9 @@ Plot.prototype.go = function () {
 				break;
 			case "progress":
 				that.setProgress(event.data.progress * 100);
+				break;
+			case "code":
+				$("#insert_point").append(event.data.code);
 				break;
 			default:
 				console.log(event.data);

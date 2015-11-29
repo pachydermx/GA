@@ -8,13 +8,13 @@ var w;
 $("#go_button").click(function() {
 	// check value
 	if ($("#p_input").val().length == 0) {
-		$("#p_input").val(100);
+		$("#p_input").val(10);
 	}
 	if ($("#b_input").val().length == 0) {
-		$("#b_input").val(192);
+		$("#b_input").val(8);
 	}
 	if ($("#g_input").val().length == 0) {
-		$("#g_input").val(500);
+		$("#g_input").val(50);
 	}
 	if ($("#cp_input").val().length == 0) {
 		$("#cp_input").val(0.6);
@@ -40,7 +40,7 @@ $("#go_button").click(function() {
 
 
 $("#reset_button").click(function() {
-	manager.reset();
+	plot.reset();
 	$("#intro").fadeIn();
 	$("#display").fadeOut();
 })

@@ -16,3 +16,21 @@ body {
 .theme-showcase .navbar .container {
   width: auto;
 }
+
+.block{
+	display: inline-block;
+	width: 4px;
+	height: 12px;
+}
+
+.dnaT {
+	background-color: greenyellow;
+}
+
+.dnaF {
+	background-color: darkred;
+}
+
+.dnaChanged{
+	border-top: solid black 2px;
+}

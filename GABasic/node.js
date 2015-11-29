@@ -1,5 +1,6 @@
 function Node(input) {
 	this.changed = [];
+	this.flag = false;
 	if (Array.isArray(input)){
 		this.dna = input;
 		this.length = this.dna.length;
@@ -19,7 +20,7 @@ Node.prototype.gen = function(length) {
 
 
 Node.prototype.mutation = function() {
-	var index = rw.select(this.length - 1);
+	var index = rw.select(this.length - 0);
 	this.dna[index] = !this.dna[index];
 	this.changed[index] = true;
 }
@@ -54,6 +55,29 @@ Node.prototype.string = function () {
 	return buf;
 }
 
+Node.prototype.block = function () {
+	var buf = "";
+	for (var i in this.dna) {
+		buf += "<span class='block "
+		if (this.dna[i]) {
+			buf += "dnaT";
+		} else {
+			buf += "dnaF";
+		}
+		if (this.changed[i]) {
+			buf += " dnaChanged"
+		}
+		buf += "'></span>";
+	}
+	this.changed = [];
+	return buf;
+}
+
 Node.prototype.code = function (id, mark) {
-	return '<li class="list-group-item item_' + id + ' ' + mark + '">' + this.string() + " - " + this.fit() + '</li>';
+	var buf = '<li class="list-group-item item_' + id + ' ' + mark;
+	if (this.flag){
+		buf += " active";
+	}
+	buf += '">' + this.block() + " - " + this.fit() + '</li>';
+	return buf;
 }

@@ -22,6 +22,10 @@ RandWorker.prototype.roulette = function(ratio) {
 	return disk[pointer];
 }
 
+RandWorker.prototype.roulette2 = function() {
+	
+}
+
 RandWorker.prototype.select = function(total) {
 	return Math.floor( Math.random() * total );
 };
