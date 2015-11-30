@@ -75,9 +75,11 @@ Node.prototype.block = function () {
 
 Node.prototype.code = function (id, mark) {
 	var buf = '<li class="list-group-item item_' + id + ' ' + mark;
+	/*
 	if (this.flag){
 		buf += " active";
 	}
+	*/
 	buf += '">' + this.block() + " - " + this.fit() + '</li>';
 	return buf;
 }

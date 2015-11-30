@@ -34,7 +34,9 @@ God.prototype.select = function () {
 	// get ratio disk
 	var ratio = [];
 	for (var i in this.population) {
-		ratio.push( this.population[i].fit() );
+		var ratio_item = this.population[i].fit();
+		//ratio_item *= ratio_item;
+		ratio.push( ratio_item );
 	}
 	// select
 	var buf = [];
@@ -47,13 +49,14 @@ God.prototype.select = function () {
 		this.population[pointer].flag = true;
 	}
 	this.population = buf;
+	// log
 	this.last_job = "Select";
 	this.type = "default";
 	this.counter++;
 	this.gen++;
 };
 
-God.prototype.crossover = function () {
+God.prototype._crossover = function () {
 	var groups = Math.floor( this.population.length / 2 ) ;
 	var mates = [];
 	// bind mates
@@ -71,6 +74,45 @@ God.prototype.crossover = function () {
 	for ( var i in mates ) {
 		mates[i].crossover();
 	}
+	// log
+	this.last_job = "Crossover";
+	this.type = "default";
+	this.counter++;
+};
+
+God.prototype.crossover = function () {
+	// scan half population
+	for (var i = 0; i < Math.floor( this.population.length / 2 ); i++){
+		// decide if mate
+		if (rw.coin( this.crossover_probability )){
+			// decide swap point
+			var swap_point = rw.select( this.length - 1 ) + 1;
+			// get new dna
+			var kid1_dna = [];
+			var kid2_dna = [];
+			var marks = [];
+			// copy
+			for (var j = 0; j < swap_point; j++){
+				kid1_dna[j] = this.population[i].dna[j];
+				kid2_dna[j] = this.population[this.population.length - i - 1].dna[j];
+			}
+			// combine
+			for (; j < this.length; j++){
+				kid2_dna[j] = this.population[i].dna[j];
+				kid1_dna[j] = this.population[this.population.length - i - 1].dna[j];
+				marks.push(j);
+			}
+			// create new population
+			this.population[i] = new Node(kid1_dna);
+			this.population[this.population.length - i - 1] = new Node(kid2_dna);
+			// mark changes
+			for (var j in marks){
+				this.population[i].changed[marks[j]] = true;
+				this.population[this.population.length - i - 1].changed[marks[j]] = true;
+			}
+		}
+	}
+	// log
 	this.last_job = "Crossover";
 	this.type = "default";
 	this.counter++;
@@ -85,12 +127,13 @@ God.prototype.mutation = function () {
 			this.population[i].flag = true;
 		}
 	}
+	// log
 	this.last_job = "Mutation";
 	this.type = "info";
 	this.counter++;
 }
 
-// calc
+// calculation
 God.prototype.stat = function () {
 	this.sumFit = 0;
 	this.maxFit = 0;

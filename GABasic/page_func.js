@@ -8,13 +8,13 @@ var w;
 $("#go_button").click(function() {
 	// check value
 	if ($("#p_input").val().length == 0) {
-		$("#p_input").val(10);
+		$("#p_input").val(6);
 	}
 	if ($("#b_input").val().length == 0) {
 		$("#b_input").val(8);
 	}
 	if ($("#g_input").val().length == 0) {
-		$("#g_input").val(50);
+		$("#g_input").val(5);
 	}
 	if ($("#cp_input").val().length == 0) {
 		$("#cp_input").val(0.6);

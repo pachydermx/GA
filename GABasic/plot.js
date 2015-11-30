@@ -42,7 +42,7 @@ Plot.prototype.go = function () {
 		"g": gens,
 		"cp": cp,
 		"mp": mp,
-		"d": 3 
+		"d": 0 
 	});
 	
 	var that = this;
@@ -56,6 +56,7 @@ Plot.prototype.go = function () {
 				that.setProgress(event.data.progress * 100);
 				break;
 			case "code":
+				//$("#insert_point").html("");
 				$("#insert_point").append(event.data.code);
 				break;
 			default:
