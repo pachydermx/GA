@@ -48,19 +48,23 @@ Plot.prototype.go = function () {
 	var that = this;
 	w.onmessage = function(event) {
 		var data = event.data;
-		switch (event.data.type){
-			case "stat":
-				that.addData(event.data.avg, event.data.max);
-				break;
-			case "progress":
-				that.setProgress(event.data.progress * 100);
-				break;
-			case "code":
-				//$("#insert_point").html("");
-				$("#insert_point").append(event.data.code);
-				break;
-			default:
-				console.log(event.data);
+		if (typeof event.data !== "undefined"){
+			switch (event.data.type){
+				case "stat":
+					that.addData(event.data.avg, event.data.max);
+					break;
+				case "progress":
+					that.setProgress(event.data.progress * 100);
+					break;
+				case "code":
+					//$("#insert_point").html("");
+					$("#insert_point").append(event.data.code);
+					break;
+				default:
+					console.log(event.data);
+			}
+		} else {
+			console.log(event.data);
 		}
 	}
 	

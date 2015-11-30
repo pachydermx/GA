@@ -35,6 +35,17 @@ Node.prototype.fit = function() {
 	return sum;
 };
 
+Node.prototype._fit = function () {
+	var value = 0;
+	for (var i in this.dna){
+		if (this.dna[i]){
+			value += 1;
+		}
+		value *= 2;
+	}
+	return value;
+};
+
 // utiltiy
 Node.prototype.string = function () {
 	var buf = "";

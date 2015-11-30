@@ -1,4 +1,6 @@
 function RandWorker() {
+	this.workingSum;
+	this.workingTable;
 }
 
 RandWorker.prototype.coin = function(ratio){
@@ -9,6 +11,7 @@ RandWorker.prototype.coin = function(ratio){
 	}
 }
 
+/*
 RandWorker.prototype.roulette = function(ratio) {
 	// generate disk
 	var disk = [];
@@ -21,10 +24,37 @@ RandWorker.prototype.roulette = function(ratio) {
 	var pointer = Math.floor( Math.random() * disk.length );
 	return disk[pointer];
 }
+*/
 
-RandWorker.prototype.roulette2 = function() {
-	
+RandWorker.prototype.rouletteGen = function(ratio) {
+	// calc sum
+	var sum = 0;
+	for (var i in ratio) {
+		sum += ratio[i];
+	}
+	// assign probablity
+	var prob = [];
+	for (var i in ratio) {
+		prob.push(ratio[i] / sum);
+	}
+	// assign
+	this.workingSum = sum;
+	this.workingTable = prob;
+};
+
+RandWorker.prototype.roulette = function() {
+	var pointer = Math.random();
+	var rangeStart = 0;
+	for (var i in this.workingTable) {
+		if (pointer >= rangeStart && pointer < rangeStart + this.workingTable[i]){
+			return i;
+		} else {
+			rangeStart += this.workingTable[i];
+		}
+	}
+	return 0;
 }
+
 
 RandWorker.prototype.select = function(total) {
 	return Math.floor( Math.random() * total );

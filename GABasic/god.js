@@ -34,15 +34,20 @@ God.prototype.select = function () {
 	// get ratio disk
 	var ratio = [];
 	for (var i in this.population) {
-		var ratio_item = this.population[i].fit();
+		var ratio_item = Math.floor(this.population[i].fit() - this.avgFit + 0.5);
 		//ratio_item *= ratio_item;
-		ratio.push( ratio_item );
+		if (ratio_item > 0){
+			ratio.push(ratio_item + 0);
+		} else {
+			ratio.push(0);
+		}
 	}
 	// select
 	var buf = [];
+	rw.rouletteGen(ratio);
 	for (var i = 0; i < this.population.length; i++){
 		// select item using roulette
-		var pointer = rw.roulette(ratio);
+		var pointer = rw.roulette();
 		buf.push(new Node(this.population[pointer].dna));
 		// mark
 		//manager.setLastColumn(pointer);
@@ -80,6 +85,7 @@ God.prototype._crossover = function () {
 	this.counter++;
 };
 
+// crossover single point
 God.prototype.crossover = function () {
 	// scan half population
 	for (var i = 0; i < Math.floor( this.population.length / 2 ); i++){
@@ -118,13 +124,50 @@ God.prototype.crossover = function () {
 	this.counter++;
 };
 
-God.prototype.mutation = function () {
+// crossover uniform
+God.prototype._crossover = function () {
+	// scan half population
+	for (var i = 0; i < Math.floor( this.population.length / 2 ); i++){
+		for (var j in this.population[i].dna) {
+			if (rw.coin( this.crossover_probability )){
+				var tmp = this.population[i].dna[j];
+				this.population[i].dna[j] = this.population[this.population.length - i - 1].dna[j];
+				this.population[this.population.length - i - 1].dna[j] = tmp;
+				
+				this.population[i].changed[j] = true;
+				this.population[this.population.length - i - 1].changed[j] = true;
+			}
+		}
+	}
+	// log
+	this.last_job = "Crossover";
+	this.type = "default";
+	this.counter++;
+}
+
+God.prototype._mutation = function () {
 	for (var i in this.population) {
 		if (rw.coin(this.mutation_probability)){
 			this.population[i].mutation();
 			// mark
 			//manager.setLastColumn(i);
 			this.population[i].flag = true;
+		}
+	}
+	// log
+	this.last_job = "Mutation";
+	this.type = "info";
+	this.counter++;
+}
+
+
+God.prototype.mutation = function () {
+	for (var i in this.population) {
+		for (var j in this.population[i].dna) {
+			if (rw.coin(this.mutation_probability)){
+				this.population[i].dna[j] = !this.population[i].dna[j];
+				this.population[i].changed[j] = true;
+			}
 		}
 	}
 	// log
