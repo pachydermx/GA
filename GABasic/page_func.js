@@ -20,7 +20,7 @@ $("#go_button").click(function() {
 		$("#cp_input").val(0.6);
 	}
 	if ($("#mp_input").val().length == 0) {
-		$("#mp_input").val(0.05);
+		$("#mp_input").val(0.01);
 	}
 	$("#intro").fadeOut();
 	$("#display").fadeIn();

@@ -24,6 +24,12 @@ this.onmessage = function(event){
 	
 	for (var i = 0; i < gens; i++){
 		god.select();
+		if (detail < 0){
+			postMessage({
+				"type": "monitor",
+				"code": god.getBestCode()
+			})
+		}
 		if (detail > 0){
 			postMessage({
 				"type": "code",

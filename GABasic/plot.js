@@ -33,6 +33,8 @@ Plot.prototype.go = function () {
 	var gens = parseInt($("#g_input").val());
 	var cp = parseFloat($("#cp_input").val());
 	var mp = parseFloat($("#mp_input").val());
+	
+	var dl = parseFloat($("#detail_level").val());
 	// init 
 	
 	w = new Worker("worker.js");
@@ -42,7 +44,7 @@ Plot.prototype.go = function () {
 		"g": gens,
 		"cp": cp,
 		"mp": mp,
-		"d": 0 
+		"d": dl 
 	});
 	
 	var that = this;
@@ -57,7 +59,10 @@ Plot.prototype.go = function () {
 					that.setProgress(event.data.progress * 100);
 					break;
 				case "code":
-					//$("#insert_point").html("");
+					$("#insert_point").append(event.data.code);
+					break;
+				case "monitor":
+					$("#insert_point").html("");
 					$("#insert_point").append(event.data.code);
 					break;
 				default:

@@ -12,6 +12,7 @@ function God(cp, mp) {
 	this.avgFit = 0;
 	this.maxFit = 0;
 	
+	this.bestGuy;
 }
 
 // generation
@@ -187,6 +188,7 @@ God.prototype.stat = function () {
 		// check max fit
 		if (theFit > this.maxFit){
 			this.maxFit = theFit;
+			this.bestGuy = this.population[i];
 		}
 	}
 	// get avg fit
@@ -220,6 +222,18 @@ God.prototype.print = function () {
 	}
 	console.log("Avg: " + this.avgFit + " Sum: " + this.sumFit)
 	console.log("");
+}
+
+God.prototype.getBestCode = function () {
+	this.stat();
+	
+	var buf = '<div class="panel-body"><div><ul class="list-group">';
+
+	buf += this.bestGuy.code(0, []);
+
+	buf += "<p>" + "Avg: " + Math.floor(this.avgFit * 100) / 100 + "</p><p>Max: " + this.maxFit + "</p></ul></div></div>";
+	
+	return buf;
 }
 
 God.prototype.code = function() {
