@@ -43,4 +43,5 @@ $("#reset_button").click(function() {
 	plot.reset();
 	$("#intro").fadeIn();
 	$("#display").fadeOut();
+	$("#progress-bar").css("width", "0%");
 })
