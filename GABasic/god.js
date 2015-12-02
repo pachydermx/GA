@@ -36,7 +36,8 @@ God.prototype.select = function () {
 	// get ratio disk
 	var ratio = [];
 	for (var i in this.population) {
-		var ratio_item = Math.floor(this.population[i].fit() - this.avgFit + 0.5);
+		//var ratio_item = Math.floor(this.population[i].fit() - this.avgFit + 0.5);
+		var ratio_item = this.population[i].fit() - this.minFit;
 		//ratio_item *= ratio_item;
 		if (ratio_item > 0){
 			ratio.push(ratio_item + 0);
