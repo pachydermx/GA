@@ -11,6 +11,7 @@ function God(cp, mp) {
 	this.sumFit = 0;
 	this.avgFit = 0;
 	this.maxFit = 0;
+	this.minFit = 0;
 	
 	this.bestGuy;
 }
@@ -181,6 +182,7 @@ God.prototype.mutation = function () {
 God.prototype.stat = function () {
 	this.sumFit = 0;
 	this.maxFit = 0;
+	this.minFit = this.length;
 	// get sum fit & max fit
 	for (var i in this.population) {
 		var theFit = this.population[i].fit();
@@ -189,6 +191,9 @@ God.prototype.stat = function () {
 		if (theFit > this.maxFit){
 			this.maxFit = theFit;
 			this.bestGuy = this.population[i];
+		}
+		if (theFit < this.minFit){
+			this.minFit = theFit;
 		}
 	}
 	// get avg fit

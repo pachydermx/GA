@@ -35,7 +35,7 @@ Node.prototype.fit = function() {
 	return sum;
 };
 
-Node.prototype._fit = function () {
+Node.prototype.value = function () {
 	var value = 0;
 	for (var i in this.dna){
 		if (this.dna[i]){

@@ -8,19 +8,19 @@ var w;
 $("#go_button").click(function() {
 	// check value
 	if ($("#p_input").val().length == 0) {
-		$("#p_input").val(100);
+		$("#p_input").val(6);
 	}
 	if ($("#b_input").val().length == 0) {
-		$("#b_input").val(192);
+		$("#b_input").val(8);
 	}
 	if ($("#g_input").val().length == 0) {
-		$("#g_input").val(100);
+		$("#g_input").val(5);
 	}
 	if ($("#cp_input").val().length == 0) {
 		$("#cp_input").val(0.6);
 	}
 	if ($("#mp_input").val().length == 0) {
-		$("#mp_input").val(0.001);
+		$("#mp_input").val(0.01);
 	}
 	$("#intro").fadeOut();
 	$("#display").fadeIn();
