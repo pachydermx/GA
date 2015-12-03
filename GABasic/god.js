@@ -181,7 +181,7 @@ God.prototype.mutation = function () {
 
 // calculation
 God.prototype.stat = function () {
-	this.sumFit = this.population[0].fit();
+	this.sumFit = 0;
 	this.maxFit = this.population[0].fit();
 	this.bestGuy = this.population[0];
 	this.minFit = this.length;
@@ -254,7 +254,7 @@ God.prototype.code = function() {
 		buf += this.population[i].code(i, this.mark[i]);
 	}
 
-	buf += "<p>" + "Avg: " + Math.floor(this.avgFit * 100) / 100 + "</p><p>Max: " + this.maxFit + "</p>";
+	buf += "<p>Sum: " + this.sumFit + "</p><p>Avg: " + Math.floor(this.avgFit * 100) / 100 + "</p><p>Max: " + this.maxFit + "</p><p>Min:" + this.minFit + "</p>";
 
 	buf += '</ul></div></div></div></div>';
 
