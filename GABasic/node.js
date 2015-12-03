@@ -26,9 +26,16 @@ Node.prototype.mutation = function() {
 }
 
 Node.prototype.fit = function() {
+	postMessage(this.value());
+	return plotFunc(this.value());
+	//return this.value();
+	//return this.count(true);
+}
+
+Node.prototype.count = function(value) {
 	var sum = 0;
 	for (var i in this.dna) {
-		if (this.dna[i]) {
+		if (this.dna[i] == value) {
 			sum++;
 		}
 	}
@@ -43,8 +50,10 @@ Node.prototype.value = function () {
 		}
 		value *= 2;
 	}
-	return value;
+	value /= 2;
+	return rs + value * interval;
 };
+
 
 // utiltiy
 Node.prototype.string = function () {

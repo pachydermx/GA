@@ -34,6 +34,11 @@ Plot.prototype.go = function () {
 	var cp = parseFloat($("#cp_input").val());
 	var mp = parseFloat($("#mp_input").val());
 	
+	var funcData = $("#func_input").val();
+	
+	var func = "return " + funcData;
+	plotFunc = new Function("x", func);
+	
 	var dl = parseFloat($("#detail_level").val());
 	// init 
 	
@@ -44,7 +49,10 @@ Plot.prototype.go = function () {
 		"g": gens,
 		"cp": cp,
 		"mp": mp,
-		"d": dl 
+		"d": dl,
+		"f": func,
+		"rs": -100,
+		"re": 100 
 	});
 	
 	var that = this;
@@ -91,3 +99,4 @@ Plot.prototype.setProgress = function(progress){
 }
 
 var plot = new Plot();
+var plotFunc;

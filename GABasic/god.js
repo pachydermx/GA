@@ -40,7 +40,7 @@ God.prototype.select = function () {
 		var ratio_item = this.population[i].fit() - this.minFit;
 		//ratio_item *= ratio_item;
 		if (ratio_item > 0){
-			ratio.push(ratio_item + 0);
+			ratio.push(ratio_item);
 		} else {
 			ratio.push(0);
 		}
@@ -181,8 +181,9 @@ God.prototype.mutation = function () {
 
 // calculation
 God.prototype.stat = function () {
-	this.sumFit = 0;
-	this.maxFit = 0;
+	this.sumFit = this.population[0].fit();
+	this.maxFit = this.population[0].fit();
+	this.bestGuy = this.population[0];
 	this.minFit = this.length;
 	// get sum fit & max fit
 	for (var i in this.population) {

@@ -1,6 +1,8 @@
 importScripts("couple.js", "ga.js", "god.js", "node.js", "manager.js");
 
 var god;
+var plotFunc;
+var rs, re, interval;
 
 this.onmessage = function(event){
 	var data = event.data;
@@ -11,6 +13,15 @@ this.onmessage = function(event){
 	var length = bits;
 	var gens = data["g"];
 	var detail = data["d"];
+	
+	var plotFuncData = data["f"];
+	rs = data["rs"];
+	re = data["re"];
+	interval = (re - rs) / Math.pow(2, bits);
+	postMessage(re - rs);
+	
+	plotFunc = new Function("x", plotFuncData);
+	
 
 	god = new God(data["cp"], data["mp"]);
 	god.init(population, bits);
