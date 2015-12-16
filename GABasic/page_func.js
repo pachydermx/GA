@@ -10,10 +10,27 @@ var ga_parameters_default = {
 	"Big Sample": [100, 192, 300, 0.6, 0.001]
 };
 
-var function_default = {
-	"Count": "Count",
-	"Simple Function": "x"
-}
+var function_default = [
+	{"name": "Count", "func": "Count", "rs": 0, "re": 0},
+	{"name": "Simple Function", "func": "x", "rs": -100, "re": 100},
+	{"name": "Sin", "func": "Math.sin(x)", "rs": -3, "re": 3}
+];
+
+$(document).ready(function(){
+	for (var i in function_default){
+		$("#function_item_insert_point").after("<li><a id='function_item_" + i + "' class='function_item' href='#'>" + function_default[i].name + "</a></li>")
+	}
+	
+	$(".function_item").click(function(event){
+		var asset = function_default[$(this).attr("id").split("_")[2]];
+		$("#func_input").val(asset.func);
+		$("#range_begin_input").val(asset.rs);
+		$("#range_end_input").val(asset.re);
+		// prevent menu from closing
+		event.stopPropagation();	
+	});
+
+})
 
 $(".ga_parameter_item").click(function(event){
 	var asset = ga_parameters_default[this.text];
@@ -24,13 +41,6 @@ $(".ga_parameter_item").click(function(event){
 	$("#mp_input").val(asset[4]);
 	// prevent menu from closing
 	event.stopPropagation();
-});
-
-$(".function_item").click(function(event){
-	var asset = function_default[this.text];
-	$("#func_input").val(asset);
-	// prevent menu from closing
-	event.stopPropagation();	
 });
 
 $("#go_button").click(function() {
