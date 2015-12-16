@@ -254,7 +254,7 @@ God.prototype.code = function() {
 		buf += this.population[i].code(i, this.mark[i]);
 	}
 
-	buf += "<p>Sum: " + this.sumFit + "</p><p>Avg: " + Math.floor(this.avgFit * 100) / 100 + "</p><p>Max: " + this.maxFit + "</p><p>Min:" + this.minFit + "</p>";
+	buf += "<p>Sum: " + this.getFloatOutput(this.sumFit) + "</p><p>Avg: " + this.getFloatOutput(this.avgFit) + "</p><p>Max: " + this.getFloatOutput(this.maxFit) + "</p><p>Min:" + this.getFloatOutput(this.minFit) + "</p>";
 
 	buf += '</ul></div></div></div></div>';
 
@@ -263,6 +263,8 @@ God.prototype.code = function() {
 	this.counter++;
 	return buf;
 		
-	
-	
+}
+
+God.prototype.getFloatOutput = function(num){
+	return Math.floor(num * 100) / 100;
 }

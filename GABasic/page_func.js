@@ -5,7 +5,36 @@ var plot_max = [];
 var counter = 0;
 var w;
 
+var ga_parameters_default = {
+	"Small Sample": [6, 8, 5, 0.6, 0.001], 
+	"Big Sample": [100, 192, 300, 0.6, 0.001]
+};
+
+var function_default = {
+	"Count": "Count",
+	"Simple Function": "x"
+}
+
+$(".ga_parameter_item").click(function(event){
+	var asset = ga_parameters_default[this.text];
+	$("#p_input").val(asset[0]);
+	$("#b_input").val(asset[1]);
+	$("#g_input").val(asset[2]);
+	$("#cp_input").val(asset[3]);
+	$("#mp_input").val(asset[4]);
+	// prevent menu from closing
+	event.stopPropagation();
+});
+
+$(".function_item").click(function(event){
+	var asset = function_default[this.text];
+	$("#func_input").val(asset);
+	// prevent menu from closing
+	event.stopPropagation();	
+});
+
 $("#go_button").click(function() {
+	var ga_parameters = ga_parameters_default[$("#ga_parameter_groups").val()];
 	// check value
 	if ($("#p_input").val().length == 0) {
 		$("#p_input").val(6);

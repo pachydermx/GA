@@ -34,7 +34,7 @@
   <body role="document">
 
     <!-- Fixed navbar -->
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -48,21 +48,23 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
 			<div class="navbar-form">
-            <div class="form-group">
-              <input id="p_input" type="number" placeholder="Population" class="form-control">
-            </div>
-            <div class="form-group">
-              <input id="b_input" type="number" placeholder="Bits" class="form-control">
-            </div>
-            <div class="form-group">
-              <input id="g_input" type="number" placeholder="Generations" class="form-control">
-            </div>
-            <div class="form-group">
-              <input id="cp_input" type="number" placeholder="Crossover Probability" class="form-control">
-            </div>
-            <div class="form-group">
-              <input id="mp_input" type="number" placeholder="Mutation Probability" class="form-control">
-            </div>
+			<div class="form-group">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">GA Parameters<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li>
+							<input id="p_input" type="number" placeholder="Population" class="form-control">
+							<input id="b_input" type="number" placeholder="Bits" class="form-control">
+							<input id="g_input" type="number" placeholder="Generations" class="form-control">
+							<input id="cp_input" type="number" placeholder="Crossover Probability" class="form-control">
+							<input id="mp_input" type="number" placeholder="Mutation Probability" class="form-control">
+						</li>
+						<li role="separator" class="divider"></li>
+						<li><a class="ga_parameter_item" href="#">Small Sample</a></li>
+						<li><a class="ga_parameter_item" href="#">Big Sample</a></li>
+					</ul>
+				</li>
+			</div>
             <div class="form-group">
 				<select id="detail_level" class="form-control">
 					<option value="-1">Monitor</option>
@@ -73,7 +75,17 @@
 				</select>
             </div>
             <div class="form-group">
-              <input id="func_input" type="text" placeholder="Function" class="form-control">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Function<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li>
+						  <input id="func_input" type="text" placeholder="Function" class="form-control">
+						</li>
+						<li role="separator" class="divider"></li>
+						<li><a class="function_item" href="#">Count</a></li>
+						<li><a class="function_item" href="#">Simple Function</a></li>
+					</ul>
+				</li>
             </div>
             <button id="go_button" class="btn btn-success">GO</button>
             <button id="reset_button" class="btn btn-danger">Reset</button>

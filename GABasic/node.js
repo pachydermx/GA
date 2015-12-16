@@ -26,10 +26,7 @@ Node.prototype.mutation = function() {
 }
 
 Node.prototype.fit = function() {
-	postMessage(this.value());
 	return plotFunc(this.value());
-	//return this.value();
-	//return this.count(true);
 }
 
 Node.prototype.count = function(value) {
@@ -100,6 +97,6 @@ Node.prototype.code = function (id, mark) {
 		buf += " active";
 	}
 	*/
-	buf += '">' + this.block() + " - " + this.fit() + '</li>';
+	buf += '">' + this.block() + " - (" + Math.floor(this.value() * 10) / 10 + ", " + Math.floor(this.fit()*10)/ 10 + ')</li>';
 	return buf;
 }
