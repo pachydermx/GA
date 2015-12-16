@@ -268,3 +268,11 @@ God.prototype.code = function() {
 God.prototype.getFloatOutput = function(num){
 	return Math.floor(num * 100) / 100;
 }
+
+God.prototype.reportCoordinates = function (){
+	var result = [];
+	for (var i in this.population){
+		result.push(this.population[i].coordinate());
+	}
+	return result;
+}

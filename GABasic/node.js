@@ -127,3 +127,7 @@ Node.prototype.code = function (id, mark) {
 	buf += '">' + this.block() + " - (" + Math.floor(this.value() * 10) / 10 + ", " + Math.floor(this.fit()*10)/ 10 + ')</li>';
 	return buf;
 }
+
+Node.prototype.coordinate = function () {
+	return [this.value(), this.fit()];
+}

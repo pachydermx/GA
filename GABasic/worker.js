@@ -75,6 +75,7 @@ this.onmessage = function(event){
 			"type": "stat",
 			"avg": god.avgFit,
 			"max": god.maxFit,
+			"coordinate": god.reportCoordinates()
 		});
 		if (i % 10){
 			postMessage({

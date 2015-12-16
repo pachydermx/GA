@@ -1,5 +1,6 @@
 function Plot() {
 	this.plots = [];
+	this.fplots = [];
 }
 
 Plot.prototype.setActive = function (counter, item) {
@@ -65,6 +66,7 @@ Plot.prototype.go = function () {
 			switch (event.data.type){
 				case "stat":
 					that.addData(event.data.avg, event.data.max);
+					that.updateFPlot(event.data.coordinate);
 					break;
 				case "progress":
 					that.setProgress(event.data.progress * 100);
@@ -87,13 +89,19 @@ Plot.prototype.go = function () {
 	//this.plots.push(plot_sum);
 	this.plots.push(plot_avg);
 	this.plots.push(plot_max);
-	//$.plot("#placeholder", this.plots);
+}
+
+Plot.prototype.updateFPlot = function(data){
+	$.plot("#fplot", [{
+		"data": data,
+		"points": {"show": true}
+	}]);
 }
 
 Plot.prototype.addData = function(avg, max){
 	plot_avg.push([counter, avg]);
 	plot_max.push([counter, max]);
-	$.plot("#placeholder", this.plots);
+	$.plot("#plot", this.plots);
 	counter++;
 }
 
