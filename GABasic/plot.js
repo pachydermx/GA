@@ -45,10 +45,12 @@ Plot.prototype.go = function () {
 	var re = parseFloat($("#range_end_input").val());
 	
 	// calc base func graph
-	this.fplot = [];
-	var int = (re - rs) / this.draw_circle;
-	for (var i = 0; i < this.draw_circle; i++){
-		this.fplot.push([rs + i * int, plotFunc(rs + i * int)]);
+	if (funcData !== "Count"){
+		this.fplot = [];
+		var int = (re - rs) / this.draw_circle;
+		for (var i = 0; i < this.draw_circle; i++){
+			this.fplot.push([rs + i * int, plotFunc(rs + i * int)]);
+		}
 	}
 	
 	var dl = parseFloat($("#detail_level").val());
