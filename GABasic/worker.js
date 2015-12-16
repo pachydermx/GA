@@ -1,7 +1,7 @@
 importScripts("couple.js", "ga.js", "god.js", "node.js", "manager.js");
 
 var god;
-var plotFunc;
+var plotFunc, parameter_length;
 var rs, re, interval;
 
 this.onmessage = function(event){
@@ -14,14 +14,23 @@ this.onmessage = function(event){
 	var gens = data["g"];
 	var detail = data["d"];
 	
+	// function
 	var plotFuncData = data["f"];
+	if (plotFuncData === "return Count"){
+		parameter_length = 0;
+		plotFuncData = "return 0";
+	} else if (plotFuncData.indexOf('y') > 0){
+		parameter_length = 2;
+	} else {
+		parameter_length = 1;
+	}
+	//range
 	rs = data["rs"];
 	re = data["re"];
 	interval = (re - rs) / Math.pow(2, bits);
 	postMessage(re - rs);
 	
-	plotFunc = new Function("x", plotFuncData);
-	
+	plotFunc = new Function("x", "y", plotFuncData);
 
 	god = new God(data["cp"], data["mp"]);
 	god.init(population, bits);

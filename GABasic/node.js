@@ -26,7 +26,19 @@ Node.prototype.mutation = function() {
 }
 
 Node.prototype.fit = function() {
-	return plotFunc(this.value());
+	switch (parameter_length){
+		case 0:
+			return this.count(true);
+			break;
+		case 1:
+			return plotFunc(this.value());
+			break;
+		case 2:
+			var vector = this.vector();
+			return plotFunc(vector[0], vector[1]);
+		default:	
+			break;
+	}
 }
 
 Node.prototype.count = function(value) {
@@ -51,6 +63,21 @@ Node.prototype.value = function () {
 	return rs + value * interval;
 };
 
+Node.prototype.vector = function (length) {
+	var result = [];
+	var delta = Math.floor(this.length / length);
+	for (var i = 0; i < length; i++){
+		var buf = 0;
+		for (var j = i * delta; j < (i + 1) * delta; j++){
+			if (this.dna[j]){
+				buf += 1;
+			}
+			buf *= 2;
+		}
+		result.push(result);
+	}
+	return result;
+}
 
 // utiltiy
 Node.prototype.string = function () {
