@@ -39,6 +39,9 @@ Plot.prototype.go = function () {
 	var func = "return " + funcData;
 	plotFunc = new Function("x", func);
 	
+	var rs = parseFloat($("#range_begin_input").val());
+	var re = parseFloat($("#range_end_input").val());
+	
 	var dl = parseFloat($("#detail_level").val());
 	// init 
 	
@@ -51,8 +54,8 @@ Plot.prototype.go = function () {
 		"mp": mp,
 		"d": dl,
 		"f": func,
-		"rs": -100,
-		"re": 100 
+		"rs": rs,
+		"re": re 
 	});
 	
 	var that = this;

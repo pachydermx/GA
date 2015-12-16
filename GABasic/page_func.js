@@ -55,7 +55,13 @@ $("#go_button").click(function() {
 	$("#display").fadeIn();
 	
 	if ($("#func_input").val().length == 0){
-		$("#func_input").val("1");
+		$("#func_input").val("x");
+	}
+	if ($("#range_begin_input").val().length == 0){
+		$("#range_begin_input").val(-100);
+	}
+	if ($("#range_end_input").val().length == 0){
+		$("#range_end_input").val(100);
 	}
 	// run
 	//manager.go();
