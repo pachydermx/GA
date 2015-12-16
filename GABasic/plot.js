@@ -1,6 +1,7 @@
 function Plot() {
 	this.plots = [];
-	this.fplots = [];
+	this.fplot = [];
+	this.draw_circle = 100;
 }
 
 Plot.prototype.setActive = function (counter, item) {
@@ -42,6 +43,13 @@ Plot.prototype.go = function () {
 	
 	var rs = parseFloat($("#range_begin_input").val());
 	var re = parseFloat($("#range_end_input").val());
+	
+	// calc base func graph
+	this.fplot = [];
+	var int = (re - rs) / this.draw_circle;
+	for (var i = 0; i < this.draw_circle; i++){
+		this.fplot.push([rs + i * int, plotFunc(rs + i * int)]);
+	}
 	
 	var dl = parseFloat($("#detail_level").val());
 	// init 
@@ -95,6 +103,9 @@ Plot.prototype.updateFPlot = function(data){
 	$.plot("#fplot", [{
 		"data": data,
 		"points": {"show": true}
+	}, {
+		"data": this.fplot,
+		"lines": {"show": true}
 	}]);
 }
 
