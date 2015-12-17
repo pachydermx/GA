@@ -97,3 +97,9 @@ $("#reset_button").click(function() {
 	$("#display").fadeOut();
 	$("#progress-bar").css("width", "0%");
 })
+
+var splot;
+$("#test_button").click(function() {
+	splot = new TwoDimensionalPlot($("#2dplot"));
+	splot.test();
+});

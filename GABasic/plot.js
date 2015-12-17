@@ -122,5 +122,6 @@ Plot.prototype.setProgress = function(progress){
 	$("#progress-bar").css("width", progress + "%");
 }
 
+
 var plot = new Plot();
 var plotFunc;
