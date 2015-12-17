@@ -6,17 +6,21 @@ var counter = 0;
 var w;
 
 var ga_parameters_default = {
-	"Small Sample": [6, 8, 5, 0.6, 0.001], 
+	"Small Sample": [6, 8, 5, 0.6, 0.001],
+	"Middle Sample": [50, 50, 100, 0.6, 0.001],
 	"Big Sample": [100, 192, 300, 0.6, 0.001]
 };
 
 var function_default = [
 	{"name": "Count", "func": "Count", "rs": 0, "re": 0},
 	{"name": "Simple Function", "func": "x", "rs": -100, "re": 100},
-	{"name": "Sin", "func": "Math.sin(x)", "rs": -3, "re": 3}
+	{"name": "Sin", "func": "Math.sin(x)", "rs": -3, "re": 3},
+	{"name": "Complex", "func": "Math.sin(x) * x", "rs": 0, "re": 24},
+	{"name": "Target", func: "- Math.cos( x - 1 ) * Math.cos( 2 * x )", "rs": -4, "re": 4}
 ];
 
 $(document).ready(function(){
+	// print function menu
 	for (var i in function_default){
 		$("#function_item_insert_point").after("<li><a id='function_item_" + i + "' class='function_item' href='#'>" + function_default[i].name + "</a></li>")
 	}
