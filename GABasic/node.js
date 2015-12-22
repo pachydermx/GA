@@ -34,7 +34,7 @@ Node.prototype.fit = function() {
 			return plotFunc(this.value());
 			break;
 		case 2:
-			var vector = this.vector();
+			var vector = this.vector(2);
 			return plotFunc(vector[0], vector[1]);
 		default:	
 			break;
@@ -74,7 +74,8 @@ Node.prototype.vector = function (length) {
 			}
 			buf *= 2;
 		}
-		result.push(result);
+		buf /= 2;
+		result.push(rs + buf * interval);
 	}
 	return result;
 }
@@ -124,7 +125,11 @@ Node.prototype.code = function (id, mark) {
 		buf += " active";
 	}
 	*/
-	buf += '">' + this.block() + " - (" + Math.floor(this.value() * 10) / 10 + ", " + Math.floor(this.fit()*10)/ 10 + ')</li>';
+	if (parameter_length < 2){
+		buf += '">' + this.block() + " - (" + Math.floor(this.value() * 10) / 10 + ", " + Math.floor(this.fit()*10)/ 10 + ')</li>';
+	} else {
+		buf += '">' + this.block() + " - (" + Math.floor(this.vector(2)[0] * 10) / 10 + ", " + Math.floor(this.vector(2)[1] * 10) / 10 + ", " + Math.floor(this.fit()*10)/ 10 + ')</li>';
+	}
 	return buf;
 }
 

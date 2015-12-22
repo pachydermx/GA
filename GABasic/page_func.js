@@ -12,11 +12,12 @@ var ga_parameters_default = {
 };
 
 var function_default = [
-	{"name": "Count", "func": "Count", "rs": 0, "re": 0},
+	{"name": "MAXONE", "func": "Count", "rs": 0, "re": 0},
 	{"name": "Simple Function", "func": "x", "rs": -100, "re": 100},
 	{"name": "Sin", "func": "Math.sin(x)", "rs": -3, "re": 3},
 	{"name": "Complex", "func": "Math.sin(x) * x", "rs": 0, "re": 24},
-	{"name": "Target", func: "- Math.cos( x - 1 ) * Math.cos( 2 * x )", "rs": -4, "re": 4}
+	{"name": "Target", func: "- Math.cos( x - 1 ) * Math.cos( 2 * x )", "rs": -4, "re": 4},
+	{"name": "Basic 2D", "func": "x+y", "rs": -100, "re": 100}
 ];
 
 $(document).ready(function(){
@@ -51,10 +52,10 @@ $("#go_button").click(function() {
 	var ga_parameters = ga_parameters_default[$("#ga_parameter_groups").val()];
 	// check value
 	if ($("#p_input").val().length == 0) {
-		$("#p_input").val(6);
+		$("#p_input").val(10);
 	}
 	if ($("#b_input").val().length == 0) {
-		$("#b_input").val(8);
+		$("#b_input").val(32);
 	}
 	if ($("#g_input").val().length == 0) {
 		$("#g_input").val(5);
@@ -100,6 +101,4 @@ $("#reset_button").click(function() {
 
 var splot;
 $("#test_button").click(function() {
-	splot = new TwoDimensionalPlot($("#2dplot"));
-	splot.test();
 });

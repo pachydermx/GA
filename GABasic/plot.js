@@ -2,6 +2,8 @@ function Plot() {
 	this.plots = [];
 	this.fplot = [];
 	this.draw_circle = 100;
+	this.splot = undefined;
+	this.dimension = 0;
 }
 
 Plot.prototype.setActive = function (counter, item) {
@@ -39,7 +41,16 @@ Plot.prototype.go = function () {
 	var funcData = $("#func_input").val();
 	
 	var func = "return " + funcData;
-	plotFunc = new Function("x", func);
+	plotFunc = new Function("x", "y", func);
+	
+	if (func === "return Count"){
+		this.dimension = 0;
+		func = "return 0";
+	} else if (func.indexOf('y') > 0){
+		this.dimension = 2;
+	} else {
+		this.dimension = 1;
+	}
 	
 	var rs = parseFloat($("#range_begin_input").val());
 	var re = parseFloat($("#range_end_input").val());
@@ -76,7 +87,11 @@ Plot.prototype.go = function () {
 			switch (event.data.type){
 				case "stat":
 					that.addData(event.data.avg, event.data.max);
-					that.updateFPlot(event.data.coordinate);
+					if(this.dimension < 2){
+						that.updateFPlot(event.data.coordinate);
+					} else {
+						that.update2DPlot(event.data.coordinate);
+					}
 					break;
 				case "progress":
 					that.setProgress(event.data.progress * 100);
@@ -99,6 +114,12 @@ Plot.prototype.go = function () {
 	//this.plots.push(plot_sum);
 	this.plots.push(plot_avg);
 	this.plots.push(plot_max);
+	
+	this.splot = new TwoDimensionalPlot($("#2dplot"), [rs, re, rs, re]);
+	this.splot.func = plotFunc;
+	this.splot.getBackgroundData();
+	this.splot.draw();
+	//this.splot.test();
 }
 
 Plot.prototype.updateFPlot = function(data){
@@ -109,6 +130,13 @@ Plot.prototype.updateFPlot = function(data){
 		"data": this.fplot,
 		"lines": {"show": true}
 	}]);
+}
+
+Plot.prototype.update2DPlot = function(data){
+	console.log(data);
+	for (var i in data){
+		this.splot.drawDot(data[i][0], data[i],[1]);
+	}
 }
 
 Plot.prototype.addData = function(avg, max){
