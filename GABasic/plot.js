@@ -133,8 +133,8 @@ Plot.prototype.updateFPlot = function(data){
 }
 
 Plot.prototype.update2DPlot = function(data){
+	this.splot.draw();
 	for (var i in data){
-		console.log(data[i])
 		this.splot.drawDotAtCoordinate(data[i][0], data[i][1]);
 	}
 }

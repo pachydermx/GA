@@ -65,21 +65,6 @@ Node.prototype.value = function () {
 
 Node.prototype.vector = function (length) {
 	var result = [];
-	/*
-	var delta = Math.floor(this.length / length);
-	for (var i = 0; i < length; i++){
-		var buf = 0;
-		for (var j = i * delta; j < (i + 1) * delta; j++){
-			if (this.dna[j]){
-				buf += 1;
-			}
-			buf *= 2;
-		}
-		buf /= 2;
-		result.push(rs + buf * interval);
-	}
-	return result;
-	*/
 	var set_length = this.length / 2;
 	// get x
 	var buf = 0;
@@ -101,6 +86,7 @@ Node.prototype.vector = function (length) {
 	buf /= 2;
 	result[1] = rs + buf * interval;
 	return result;
+	//return [this.value(), this.value()];
 }
 
 // utiltiy

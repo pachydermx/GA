@@ -27,7 +27,11 @@ this.onmessage = function(event){
 	//range
 	rs = data["rs"];
 	re = data["re"];
-	interval = (re - rs) / Math.pow(2, bits);
+	if (parameter_length > 2){
+		interval = (re - rs) / Math.pow(2, bits);
+	} else {
+		interval = (re - rs) / Math.pow(2, bits / 2);
+	}
 	postMessage(re - rs);
 	
 	plotFunc = new Function("x", "y", plotFuncData);
