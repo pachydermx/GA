@@ -45,7 +45,6 @@ Plot.prototype.go = function () {
 	
 	if (func === "return Count"){
 		this.dimension = 0;
-		func = "return 0";
 	} else if (func.indexOf('y') > 0){
 		this.dimension = 2;
 	} else {
@@ -87,7 +86,7 @@ Plot.prototype.go = function () {
 			switch (event.data.type){
 				case "stat":
 					that.addData(event.data.avg, event.data.max);
-					if(this.dimension < 2){
+					if (that.dimension < 2){
 						that.updateFPlot(event.data.coordinate);
 					} else {
 						that.update2DPlot(event.data.coordinate);
@@ -115,11 +114,13 @@ Plot.prototype.go = function () {
 	this.plots.push(plot_avg);
 	this.plots.push(plot_max);
 	
-	this.splot = new TwoDimensionalPlot($("#2dplot"), [rs, re, rs, re]);
-	this.splot.func = plotFunc;
-	this.splot.getBackgroundData();
-	this.splot.draw();
-	//this.splot.test();
+	if (this.dimension == 2){
+		this.splot = new TwoDimensionalPlot($("#2dplot"), [rs, re, rs, re]);
+		this.splot.func = plotFunc;
+		this.splot.getBackgroundData();
+		this.splot.draw();
+		
+	}
 }
 
 Plot.prototype.updateFPlot = function(data){

@@ -27,7 +27,7 @@ this.onmessage = function(event){
 	//range
 	rs = data["rs"];
 	re = data["re"];
-	if (parameter_length > 2){
+	if (parameter_length < 2){
 		interval = (re - rs) / Math.pow(2, bits);
 	} else {
 		interval = (re - rs) / Math.pow(2, bits / 2);
