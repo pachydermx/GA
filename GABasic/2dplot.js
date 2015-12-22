@@ -57,7 +57,7 @@ TwoDimensionalPlot.prototype.drawDot = function(x, y){
 TwoDimensionalPlot.prototype.drawDotAtCoordinate = function(x, y){
 	var rx = Math.floor( this.interval * (x - this.origin[0]) / this.length[0] );
 	var ry = Math.floor( this.interval * (y - this.origin[1]) / this.length[1] );
-	console.log(rx, ry);
+	console.log(x, y, rx, ry);
 	this.drawDot(rx, ry);
 };
 

@@ -133,9 +133,9 @@ Plot.prototype.updateFPlot = function(data){
 }
 
 Plot.prototype.update2DPlot = function(data){
-	console.log(data);
 	for (var i in data){
-		this.splot.drawDot(data[i][0], data[i],[1]);
+		console.log(data[i])
+		this.splot.drawDotAtCoordinate(data[i][0], data[i][1]);
 	}
 }
 
