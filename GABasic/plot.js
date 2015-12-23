@@ -115,7 +115,7 @@ Plot.prototype.go = function () {
 	this.plots.push(plot_max);
 	
 	if (this.dimension == 2){
-		this.splot = new TwoDimensionalPlot($("#2dplot"), [rs, re, rs, re]);
+		this.splot = new TwoDimensionalPlot($("#tdplot"), $("#tdplot-foreground"), [rs, re, rs, re]);
 		this.splot.func = plotFunc;
 		this.splot.getBackgroundData();
 		this.splot.draw();
@@ -134,7 +134,8 @@ Plot.prototype.updateFPlot = function(data){
 }
 
 Plot.prototype.update2DPlot = function(data){
-	this.splot.draw();
+	//this.splot.draw();
+	this.splot.clear_canvas();
 	for (var i in data){
 		this.splot.drawDotAtCoordinate(data[i][0], data[i][1]);
 	}

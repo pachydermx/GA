@@ -1,8 +1,9 @@
-function TwoDimensionalPlot(selector, dimension){
+function TwoDimensionalPlot(selector, foreground, dimension){
 	this.origin = [dimension[0], dimension[2]];
 	this.length = [dimension[1] - dimension[0], dimension[3] - dimension[2]];
 	this.interval = 400;
-	this.canvas = selector[0].getContext("2d");
+	this.background_canvas = selector[0].getContext("2d");
+	this.foreground_canvas = foreground[0].getContext("2d");
 	this.background = [];
 	this.min = 0;
 	this.max = 0;
@@ -43,15 +44,15 @@ TwoDimensionalPlot.prototype.draw = function () {
 };
 
 TwoDimensionalPlot.prototype.drawPoint = function (x, y, color){
-	this.canvas.fillStyle = color;
-	this.canvas.fillRect(x, this.interval - y, 1, 1);
+	this.background_canvas.fillStyle = color;
+	this.background_canvas.fillRect(x, this.interval - y, 1, 1);
 }
 
 TwoDimensionalPlot.prototype.drawDot = function(x, y){
-	this.canvas.fillStyle = "#000000";
-	this.canvas.beginPath();
-	this.canvas.arc(x - 2, this.interval - y + 2, 4, 0, 2 * Math.PI);
-	this.canvas.stroke();
+	this.foreground_canvas.fillStyle = "#000000";
+	this.foreground_canvas.beginPath();
+	this.foreground_canvas.arc(x - 2, this.interval - y + 2, 4, 0, 2 * Math.PI);
+	this.foreground_canvas.stroke();
 }
 
 TwoDimensionalPlot.prototype.drawDotAtCoordinate = function(x, y){
@@ -98,3 +99,7 @@ TwoDimensionalPlot.prototype.test = function() {
 	this.drawDotAtCoordinate(0, 0);
 	this.drawDotAtCoordinate(1, 2);
 };
+
+TwoDimensionalPlot.prototype.clear_canvas = function() {
+	this.foreground_canvas.clearRect(0, 0, 400, 400);
+}
