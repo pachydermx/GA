@@ -38,7 +38,7 @@ TwoDimensionalPlot.prototype.draw = function () {
 	for (var i = 0; i < this.interval; i++){
 		for (var j = 0; j < this.interval; j++){
 			var color = this.getColorByPercentage((this.background[i][j] - this.min) / (this.max - this.min));
-			this.drawPoint(i, j, color);
+			this.drawPoint(j, i, color);
 		}
 	}
 };
