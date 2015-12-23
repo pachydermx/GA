@@ -1,6 +1,8 @@
 importScripts("couple.js", "ga.js", "god.js", "node.js", "manager.js");
 
 var god;
+var plotFunc, parameter_length;
+var rs, re, interval;
 
 this.onmessage = function(event){
 	var data = event.data;
@@ -11,6 +13,28 @@ this.onmessage = function(event){
 	var length = bits;
 	var gens = data["g"];
 	var detail = data["d"];
+	
+	// function
+	var plotFuncData = data["f"];
+	if (plotFuncData === "return Count"){
+		parameter_length = 0;
+		plotFuncData = "return 0";
+	} else if (plotFuncData.indexOf('y') > 0){
+		parameter_length = 2;
+	} else {
+		parameter_length = 1;
+	}
+	//range
+	rs = data["rs"];
+	re = data["re"];
+	if (parameter_length < 2){
+		interval = (re - rs) / Math.pow(2, bits);
+	} else {
+		interval = (re - rs) / Math.pow(2, bits / 2);
+	}
+	postMessage(re - rs);
+	
+	plotFunc = new Function("x", "y", plotFuncData);
 
 	god = new God(data["cp"], data["mp"]);
 	god.init(population, bits);
@@ -55,6 +79,7 @@ this.onmessage = function(event){
 			"type": "stat",
 			"avg": god.avgFit,
 			"max": god.maxFit,
+			"coordinate": god.reportCoordinates()
 		});
 		if (i % 10){
 			postMessage({
@@ -63,5 +88,10 @@ this.onmessage = function(event){
 			});
 		}
 	}
+	// send complete
+	postMessage({
+		"type": "progress",
+		"progress": 1
+	});
 
 }

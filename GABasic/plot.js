@@ -1,5 +1,9 @@
 function Plot() {
 	this.plots = [];
+	this.fplot = [];
+	this.draw_circle = 100;
+	this.splot = undefined;
+	this.dimension = 0;
 }
 
 Plot.prototype.setActive = function (counter, item) {
@@ -34,6 +38,31 @@ Plot.prototype.go = function () {
 	var cp = parseFloat($("#cp_input").val());
 	var mp = parseFloat($("#mp_input").val());
 	
+	var funcData = $("#func_input").val();
+	
+	var func = "return " + funcData;
+	plotFunc = new Function("x", "y", func);
+	
+	if (func === "return Count"){
+		this.dimension = 0;
+	} else if (func.indexOf('y') > 0){
+		this.dimension = 2;
+	} else {
+		this.dimension = 1;
+	}
+	
+	var rs = parseFloat($("#range_begin_input").val());
+	var re = parseFloat($("#range_end_input").val());
+	
+	// calc base func graph
+	if (funcData !== "Count"){
+		this.fplot = [];
+		var int = (re - rs) / this.draw_circle;
+		for (var i = 0; i < this.draw_circle; i++){
+			this.fplot.push([rs + i * int, plotFunc(rs + i * int)]);
+		}
+	}
+	
 	var dl = parseFloat($("#detail_level").val());
 	// init 
 	
@@ -44,7 +73,10 @@ Plot.prototype.go = function () {
 		"g": gens,
 		"cp": cp,
 		"mp": mp,
-		"d": dl 
+		"d": dl,
+		"f": func,
+		"rs": rs,
+		"re": re 
 	});
 	
 	var that = this;
@@ -54,6 +86,11 @@ Plot.prototype.go = function () {
 			switch (event.data.type){
 				case "stat":
 					that.addData(event.data.avg, event.data.max);
+					if (that.dimension < 2){
+						that.updateFPlot(event.data.coordinate);
+					} else {
+						that.update2DPlot(event.data.coordinate);
+					}
 					break;
 				case "progress":
 					that.setProgress(event.data.progress * 100);
@@ -76,13 +113,43 @@ Plot.prototype.go = function () {
 	//this.plots.push(plot_sum);
 	this.plots.push(plot_avg);
 	this.plots.push(plot_max);
-	//$.plot("#placeholder", this.plots);
+	
+	$(".function-plot").hide();
+	
+	if (this.dimension == 2){
+		$("#two-d-plot").show();
+		this.splot = new TwoDimensionalPlot($("#tdplot"), $("#tdplot-foreground"), [rs, re, rs, re]);
+		this.splot.func = plotFunc;
+		this.splot.getBackgroundData();
+		this.splot.draw();
+	} else if (this.dimension == 1){
+		$("#one-d-plot").show();
+	}
+	
+}
+
+Plot.prototype.updateFPlot = function(data){
+	$.plot("#fplot", [{
+		"data": data,
+		"points": {"show": true}
+	}, {
+		"data": this.fplot,
+		"lines": {"show": true}
+	}]);
+}
+
+Plot.prototype.update2DPlot = function(data){
+	//this.splot.draw();
+	this.splot.clear_canvas();
+	for (var i in data){
+		this.splot.drawDotAtCoordinate(data[i][0], data[i][1]);
+	}
 }
 
 Plot.prototype.addData = function(avg, max){
 	plot_avg.push([counter, avg]);
 	plot_max.push([counter, max]);
-	$.plot("#placeholder", this.plots);
+	$.plot("#plot", this.plots);
 	counter++;
 }
 
@@ -90,4 +157,6 @@ Plot.prototype.setProgress = function(progress){
 	$("#progress-bar").css("width", progress + "%");
 }
 
+
 var plot = new Plot();
+var plotFunc;

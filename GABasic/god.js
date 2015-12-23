@@ -40,7 +40,7 @@ God.prototype.select = function () {
 		var ratio_item = this.population[i].fit() - this.minFit;
 		//ratio_item *= ratio_item;
 		if (ratio_item > 0){
-			ratio.push(ratio_item + 0);
+			ratio.push(ratio_item);
 		} else {
 			ratio.push(0);
 		}
@@ -182,7 +182,8 @@ God.prototype.mutation = function () {
 // calculation
 God.prototype.stat = function () {
 	this.sumFit = 0;
-	this.maxFit = 0;
+	this.maxFit = this.population[0].fit();
+	this.bestGuy = this.population[0];
 	this.minFit = this.length;
 	// get sum fit & max fit
 	for (var i in this.population) {
@@ -253,7 +254,7 @@ God.prototype.code = function() {
 		buf += this.population[i].code(i, this.mark[i]);
 	}
 
-	buf += "<p>" + "Avg: " + Math.floor(this.avgFit * 100) / 100 + "</p><p>Max: " + this.maxFit + "</p>";
+	buf += "<p>Sum: " + this.getFloatOutput(this.sumFit) + "</p><p>Avg: " + this.getFloatOutput(this.avgFit) + "</p><p>Max: " + this.getFloatOutput(this.maxFit) + "</p><p>Min:" + this.getFloatOutput(this.minFit) + "</p>";
 
 	buf += '</ul></div></div></div></div>';
 
@@ -262,6 +263,16 @@ God.prototype.code = function() {
 	this.counter++;
 	return buf;
 		
-	
-	
+}
+
+God.prototype.getFloatOutput = function(num){
+	return Math.floor(num * 100) / 100;
+}
+
+God.prototype.reportCoordinates = function (){
+	var result = [];
+	for (var i in this.population){
+		result.push(this.population[i].coordinate());
+	}
+	return result;
 }

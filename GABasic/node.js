@@ -26,9 +26,25 @@ Node.prototype.mutation = function() {
 }
 
 Node.prototype.fit = function() {
+	switch (parameter_length){
+		case 0:
+			return this.count(true);
+			break;
+		case 1:
+			return plotFunc(this.value());
+			break;
+		case 2:
+			var vector = this.vector(2);
+			return plotFunc(vector[0], vector[1]);
+		default:	
+			break;
+	}
+}
+
+Node.prototype.count = function(value) {
 	var sum = 0;
 	for (var i in this.dna) {
-		if (this.dna[i]) {
+		if (this.dna[i] == value) {
 			sum++;
 		}
 	}
@@ -43,8 +59,35 @@ Node.prototype.value = function () {
 		}
 		value *= 2;
 	}
-	return value;
+	value /= 2;
+	return rs + value * interval;
 };
+
+Node.prototype.vector = function (length) {
+	var result = [];
+	var set_length = this.length / 2;
+	// get x
+	var buf = 0;
+	for (var i = 0; i < set_length; i++){
+		if (this.dna[i]){
+			buf += 1;
+		}
+		buf *= 2;
+	}
+	buf /= 2;
+	result[0] = rs + buf * interval;
+	buf = 0;
+	for (var i = set_length; i < this.length; i++){
+		if (this.dna[i]){
+			buf += 1;
+		}
+		buf *= 2;
+	}
+	buf /= 2;
+	result[1] = rs + buf * interval;
+	return result;
+	//return [this.value(), this.value()];
+}
 
 // utiltiy
 Node.prototype.string = function () {
@@ -91,6 +134,20 @@ Node.prototype.code = function (id, mark) {
 		buf += " active";
 	}
 	*/
-	buf += '">' + this.block() + " - " + this.fit() + '</li>';
+	if (parameter_length == 1){
+		buf += '">' + this.block() + " - (" + Math.floor(this.value() * 10) / 10 + ", " + Math.floor(this.fit()*10)/ 10 + ')</li>';
+	} else if(parameter_length == 2){
+		buf += '">' + this.block() + " - (" + Math.floor(this.vector(2)[0] * 10) / 10 + ", " + Math.floor(this.vector(2)[1] * 10) / 10 + ", " + Math.floor(this.fit()*10)/ 10 + ')</li>';
+	} else {
+		buf += '">' + this.block() + " - " + Math.floor(this.fit()*10)/ 10 + '</li>';
+	}
 	return buf;
+}
+
+Node.prototype.coordinate = function () {
+	if (parameter_length < 2){
+		return [this.value(), this.fit()];
+	} else {
+		return [this.vector()[0], this.vector()[1]];
+	}
 }
