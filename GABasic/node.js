@@ -135,11 +135,11 @@ Node.prototype.code = function (id, mark) {
 	}
 	*/
 	if (parameter_length == 1){
-		buf += '">' + this.block() + " - (" + Math.floor(this.value() * 10) / 10 + ", " + Math.floor(this.fit()*10)/ 10 + ')</li>';
+		buf += '">' + this.block() + " - (" + Math.floor(this.value() * 1000) / 1000 + ", " + Math.floor(this.fit()*1000)/ 1000 + ')</li>';
 	} else if(parameter_length == 2){
-		buf += '">' + this.block() + " - (" + Math.floor(this.vector(2)[0] * 10) / 10 + ", " + Math.floor(this.vector(2)[1] * 10) / 10 + ", " + Math.floor(this.fit()*10)/ 10 + ')</li>';
+		buf += '">' + this.block() + " - (" + Math.floor(this.vector(2)[0] * 1000) / 1000 + ", " + Math.floor(this.vector(2)[1] * 1000) / 1000 + ", " + Math.floor(this.fit()*1000)/ 1000 + ')</li>';
 	} else {
-		buf += '">' + this.block() + " - " + Math.floor(this.fit()*10)/ 10 + '</li>';
+		buf += '">' + this.block() + " - " + this.fit() + '</li>';
 	}
 	return buf;
 }

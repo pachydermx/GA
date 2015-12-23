@@ -101,5 +101,3 @@ $("#reset_button").click(function() {
 })
 
 var splot;
-$("#test_button").click(function() {
-});
