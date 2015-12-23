@@ -6,15 +6,8 @@
 	border: 1px solid #ddd;
 	background: #fff;
 	background: linear-gradient(#f6f6f6 0, #fff 50px);
-	background: -o-linear-gradient(#f6f6f6 0, #fff 50px);
-	background: -ms-linear-gradient(#f6f6f6 0, #fff 50px);
-	background: -moz-linear-gradient(#f6f6f6 0, #fff 50px);
-	background: -webkit-linear-gradient(#f6f6f6 0, #fff 50px);
 	box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-	-o-box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-	-ms-box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-	-moz-box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-	-webkit-box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+	text-align: center;
 }
 
 .demo-placeholder {
@@ -34,8 +27,7 @@
 }
 
 #tdplot-foreground {
-	position: relative;
-	left: -400;
+	margin-left: -400px;
 }
 
 canvas {
@@ -44,6 +36,9 @@ canvas {
 	border: 0px;
 }
 
+.progress-bar.no-animation{
+	transition: width 0s;
+}
 /*
 .form-group .form-control[type="number"]{
 	width: 100px;

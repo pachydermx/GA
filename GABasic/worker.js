@@ -88,5 +88,10 @@ this.onmessage = function(event){
 			});
 		}
 	}
+	// send complete
+	postMessage({
+		"type": "progress",
+		"progress": 1
+	});
 
 }
