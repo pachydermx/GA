@@ -17,7 +17,8 @@ var function_default = [
 	{"name": "Sin", "func": "Math.sin(x)", "rs": -3, "re": 3},
 	{"name": "Complex", "func": "Math.sin(x) * x", "rs": 0, "re": 24},
 	{"name": "Target", func: "- Math.cos( x - 1 ) * Math.cos( 2 * x )", "rs": -4, "re": 4},
-	{"name": "Basic 2D", "func": "x+y", "rs": -100, "re": 100}
+	{"name": "Basic 2D", "func": "x+y", "rs": -100, "re": 100},
+	{"name": "Another 2D", "func": "Math.sin(x) + Math.sin(y)", "rs": 0, "re":3.14}
 ];
 
 $(document).ready(function(){

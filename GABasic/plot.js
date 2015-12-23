@@ -114,13 +114,18 @@ Plot.prototype.go = function () {
 	this.plots.push(plot_avg);
 	this.plots.push(plot_max);
 	
+	$(".function-plot").hide();
+	
 	if (this.dimension == 2){
+		$("#two-d-plot").show();
 		this.splot = new TwoDimensionalPlot($("#tdplot"), $("#tdplot-foreground"), [rs, re, rs, re]);
 		this.splot.func = plotFunc;
 		this.splot.getBackgroundData();
 		this.splot.draw();
-		
+	} else if (this.dimension == 1){
+		$("#one-d-plot").show();
 	}
+	
 }
 
 Plot.prototype.updateFPlot = function(data){
