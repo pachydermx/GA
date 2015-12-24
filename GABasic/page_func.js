@@ -13,14 +13,15 @@ var ga_parameters_default = {
 
 var function_default = [
 	{"name": "MAXONE", "func": "Count", "rs": 0, "re": 0},
-	{"name": "Simple Function", "func": "x", "rs": -100, "re": 100},
+	{"name": "Simple Function", "func": "10 - Math.abs(x-5)", "rs": -100, "re": 100},
 	{"name": "Sin", "func": "Math.sin(x)", "rs": -3, "re": 3},
 	{"name": "Complex", "func": "Math.sin(x) * x", "rs": 0, "re": 24},
 	{"name": "Target", func: "- Math.cos( x - 1 ) * Math.cos( 2 * x )", "rs": -4, "re": 4},
 	{"name": "Basic 2D", "func": "x+y", "rs": -100, "re": 100},
 	{"name": "Another 2D", "func": "Math.sin(x) + Math.sin(y)", "rs": 0, "re":3.14},
 	{"name": "Langermann's function", "func": "1 * Math.exp( -((x - 3)^2/Math.PI) - ((y - 5) * (y - 5)/Math.PI) ) * Math.cos( Math.PI * (x - 3) * (x - 3) + Math.PI * (y - 5) * (y - 5)) + 2 * Math.exp( -((x - 5) * (x - 5)/Math.PI) - ((y - 2)* (y - 2)/Math.PI) ) * Math.cos( Math.PI * (x - 5) * (x - 5) + Math.PI * (y - 2) * (y - 2)) + 5 * Math.exp( -((x - 2) * (x - 2)/Math.PI) - ((y - 1) * (y - 1)/Math.PI) ) * Math.cos( Math.PI * (x - 2) * (x - 2) + Math.PI * (y - 1) * (y - 1)) +2 * Math.exp( -((x - 1) * (x - 1)/Math.PI) - ((y - 4) * (y - 4)/Math.PI) ) * Math.cos( Math.PI * (x - 1) * (x - 1) + Math.PI * (y - 4) * (y - 4)) + 3 * Math.exp( -((x - 7) * (x - 7)/Math.PI) - ((y - 9) * (y - 9)/Math.PI) ) * Math.cos( Math.PI * (x - 7) * (x - 7) + Math.PI * (y - 9) * (y - 9))", "rs": 3, "re": 5}, 
-	{"name": "Schwefel’s function", "func": "(x*x + y*y)/4000 - Math.cos(x) * Math.cos(y/Math.sqrt(2)) + 1", "rs": -100, "re": 500}
+	{"name": "Schwefel’s function", "func": "(x*x + y*y)/4000 - Math.cos(x) * Math.cos(y/Math.sqrt(2)) + 1", "rs": -100, "re": 500},
+	{"name": "Chessboard", "func": "Math.sin(x) * Math.sin(y)", "rs": 0, "re": 3.14*3}
 ];
 
 $(document).ready(function(){
@@ -55,13 +56,13 @@ $("#go_button").click(function() {
 	var ga_parameters = ga_parameters_default[$("#ga_parameter_groups").val()];
 	// check value
 	if ($("#p_input").val().length == 0) {
-		$("#p_input").val(10);
+		$("#p_input").val(100);
 	}
 	if ($("#b_input").val().length == 0) {
-		$("#b_input").val(32);
+		$("#b_input").val(192);
 	}
 	if ($("#g_input").val().length == 0) {
-		$("#g_input").val(5);
+		$("#g_input").val(100);
 	}
 	if ($("#cp_input").val().length == 0) {
 		$("#cp_input").val(0.6);
