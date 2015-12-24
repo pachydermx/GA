@@ -14,6 +14,8 @@ function God(cp, mp) {
 	this.minFit = 0;
 	
 	this.select_mode = undefined;
+	this.crossover_mode = undefined;
+	this.mutation_mode = undefined;
 	
 	this.bestGuy;
 }
@@ -39,7 +41,10 @@ God.prototype.select = function () {
 	var ratio = [];
 	for (var i in this.population) {
 		//var ratio_item = Math.floor(this.population[i].fit() - this.avgFit + 0.5);
-		var ratio_item = this.population[i].fit() - this.minFit;
+		var ratio_item = this.population[i].fit();
+		if (this.select_mode === "optimized"){
+			ratio_item -= this.minFit;
+		}
 		//ratio_item *= ratio_item;
 		if (ratio_item > 0){
 			ratio.push(ratio_item);

@@ -7,12 +7,19 @@ var rs, re, interval;
 this.onmessage = function(event){
 	var data = event.data;
 	
+	// debug
+	//postMessage(data);
+	
 	var counter = 0;
 	var population = data["p"];
 	var bits = data["b"];
 	var length = bits;
 	var gens = data["g"];
 	var detail = data["d"];
+	
+	var select_mode = data["sm"];
+	var crossover_mode = data["cm"];
+	var mutation_mode = data["mm"];
 	
 	// function
 	var plotFuncData = data["f"];
@@ -32,12 +39,16 @@ this.onmessage = function(event){
 	} else {
 		interval = (re - rs) / Math.pow(2, bits / 2);
 	}
-	postMessage(re - rs);
 	
 	plotFunc = new Function("x", "y", plotFuncData);
 
 	god = new God(data["cp"], data["mp"]);
 	god.init(population, bits);
+	
+	// set god
+	god.select_mode = select_mode;
+	god.crossover_mode = crossover_mode;
+	god.mutation_mode = mutation_mode;
 	
 	if (detail > 0){
 		postMessage({

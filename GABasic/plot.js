@@ -63,7 +63,12 @@ Plot.prototype.go = function () {
 		}
 	}
 	
+	// options
 	var dl = parseFloat($("#detail_level").val());
+	var select_mode = $("#select_mode").val();
+	var crossover_mode = $("#crossover_mode").val();
+	var mutation_mode = $("#mutation_mode").val();
+	
 	// init 
 	
 	w = new Worker("worker.js");
@@ -76,7 +81,10 @@ Plot.prototype.go = function () {
 		"d": dl,
 		"f": func,
 		"rs": rs,
-		"re": re 
+		"re": re,
+		"sm": select_mode,
+		"cm": crossover_mode,
+		"mm": mutation_mode
 	});
 	
 	var that = this;
