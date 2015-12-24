@@ -155,7 +155,15 @@ God.prototype._crossover = function () {
 	this.counter++;
 }
 
-God.prototype._mutation = function () {
+God.prototype.mutation = function () {
+	if (this.mutation_mode === "byindividual"){
+		this.mutation_by_individual();
+	} else {
+		this.mutation_by_bit();
+	}
+}
+
+God.prototype.mutation_by_individual = function () {
 	for (var i in this.population) {
 		if (rw.coin(this.mutation_probability)){
 			this.population[i].mutation();
@@ -171,7 +179,7 @@ God.prototype._mutation = function () {
 }
 
 
-God.prototype.mutation = function () {
+God.prototype.mutation_by_bit = function () {
 	for (var i in this.population) {
 		for (var j in this.population[i].dna) {
 			if (rw.coin(this.mutation_probability)){
