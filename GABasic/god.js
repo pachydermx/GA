@@ -13,6 +13,8 @@ function God(cp, mp) {
 	this.maxFit = 0;
 	this.minFit = 0;
 	
+	this.select_mode = undefined;
+	
 	this.bestGuy;
 }
 

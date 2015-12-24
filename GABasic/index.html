@@ -86,14 +86,46 @@
 					</ul>
 				</li>
             </div>
-            <div class="form-group">
-				<select id="detail_level" class="form-control">
-					<option value="-1">Monitor</option>
-					<option value="0">Disabled</option>
-					<option value="1">Select</option>
-					<option value="2">Crossover</option>
-					<option value="3">Full</option>
-				</select>
+            <div id="option_menu" class="form-group">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Options<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li>
+							<label>Display Level</label>
+							<select id="detail_level" class="form-control">
+								<option value="-1">Monitor</option>
+								<option value="0">Disabled</option>
+								<option value="1">Select</option>
+								<option value="2">Crossover</option>
+								<option value="3">Full</option>
+							</select>
+						</li>
+						<li role="separator" class="divider"></li>
+						<li>
+							<label>Select Mode</label>
+							<select id="select_mode" class="form-control">
+								<option value="optimized">Optimized</option>
+								<option value="justify">Justify</option>
+							</select>
+						</li>
+						<li role="separator" class="divider"></li>
+						<li>
+							<label>Crossover Mode</label>
+							<select id="crossover_mode" class="form-control">
+								<option value="onepoint">One Point</option>
+								<option value="twopoints">Two Points</option>
+							</select>
+						</li>
+						<li role="separator" class="divider"></li>
+						<li>
+							<label>Mutation Mode</label>
+							<select id="mutation_mode" class="form-control">
+								<option value="bybit">By bit</option>
+								<option value="byindividual">By Individual</option>
+							</select>
+						</li>
+					</ul>
+				</li>
             </div>
             <button id="go_button" class="btn btn-success">GO</button>
             <button id="reset_button" class="btn btn-danger">Reset</button>

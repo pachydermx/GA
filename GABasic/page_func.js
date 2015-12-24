@@ -103,4 +103,12 @@ $("#reset_button").click(function() {
 	$("#progress-bar").css("width", "0%");
 })
 
+$("#option_menu select").click(function(event){
+	event.stopPropagation();
+})
+
+$("#option_menu select").change(function(event) {
+	event.stopPropagation();
+})
+
 var splot;
